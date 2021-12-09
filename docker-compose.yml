@@ -1,0 +1,12 @@
+
+version: '3.7'
+services:
+  postgres:
+    image: postgres:13.3
+    restart: always
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=cinema
+    ports:
+      - '5440:5432'
