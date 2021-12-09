@@ -22,7 +22,7 @@ public class MovieServiceImpl implements MovieService {
                 .collect(Collectors.toList());
     }
 
-    public List<MovieDto> getRandomMovies(int count){
+    public List<MovieDto> getRandomMovies(int count) {
         return movieDao.getRandomMovies(count).stream()
                 .map(MovieMapper.INSTANCE::mapToDto)
                 .collect(Collectors.toList());

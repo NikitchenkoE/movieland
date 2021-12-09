@@ -11,6 +11,7 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
@@ -69,7 +70,7 @@ class MovieJDBCTestIntegration {
     }
 
     @Test
-    void testGetRandomMovieReturnRightNumberOfMovies(){
+    void testGetRandomMovieReturnRightNumberOfMovies() {
         var tenMovies = movieJDBC.getRandomMovies(10);
         var oneMovie = movieJDBC.getRandomMovies(1);
         var twentyFiveMovies = movieJDBC.getRandomMovies(25);

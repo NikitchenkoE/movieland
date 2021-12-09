@@ -20,7 +20,7 @@ class MovieServiceImplTest {
     private static final List<MovieDto> movieExpected = Arrays.asList(MovieDto.builder().id(1L).build(), MovieDto.builder().id(2L).build());
 
     @BeforeAll
-    static void init(){
+    static void init() {
         Mockito.when(movieDao.getAllMovies()).thenReturn(movieActual);
         Mockito.when(movieDao.getRandomMovies(2)).thenReturn(movieActual);
     }
