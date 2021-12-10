@@ -1,4 +1,4 @@
-package com.dao.jdbc;
+package com.repository.impl;
 
 import com.entity.Movie;
 import com.zaxxer.hikari.HikariConfig;
@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.List;
 
 @Testcontainers
-class MovieJDBCTestIntegration {
+class MovieJDBCITest {
 
-    private final MovieJDBC movieJDBC = new MovieJDBC();
+    private final MovieRepImpl movieRep = new MovieRepImpl();
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
@@ -37,18 +37,16 @@ class MovieJDBCTestIntegration {
         var dataSource = new HikariDataSource(config);
 
         Flyway flyway = Flyway.configure()
-                .locations("/db/migration")
                 .dataSource(dataSource)
                 .load();
-        flyway.clean();
         flyway.migrate();
 
-        movieJDBC.setJdbcTemplate(new JdbcTemplate(dataSource));
+        movieRep.setJdbcTemplate(new JdbcTemplate(dataSource));
     }
 
     @Test
     void testGetAllMoviesReturnRightNumberOfMovies() {
-        List<Movie> allMovies = movieJDBC.getAllMovies();
+        List<Movie> allMovies = movieRep.getAllMovies();
         assertEquals(25, allMovies.size());
         assertNotEquals(1, allMovies.size());
         assertNotEquals(5, allMovies.size());
@@ -57,23 +55,23 @@ class MovieJDBCTestIntegration {
 
     @Test
     void testGetAllMoviesReturnRightFirstMovies() {
-        List<Movie> allMovies = movieJDBC.getAllMovies();
+        List<Movie> allMovies = movieRep.getAllMovies();
         assertEquals("Побег из Шоушенка", allMovies.get(0).getNameRussian());
         assertEquals("The Shawshank Redemption", allMovies.get(0).getNameNative());
     }
 
     @Test
     void testGetAllMoviesReturnRightLastMovies() {
-        List<Movie> allMovies = movieJDBC.getAllMovies();
+        List<Movie> allMovies = movieRep.getAllMovies();
         assertEquals("Танцующий с волками", allMovies.get(24).getNameRussian());
         assertEquals("Dances with Wolves", allMovies.get(24).getNameNative());
     }
 
     @Test
     void testGetRandomMovieReturnRightNumberOfMovies() {
-        var tenMovies = movieJDBC.getRandomMovies(10);
-        var oneMovie = movieJDBC.getRandomMovies(1);
-        var twentyFiveMovies = movieJDBC.getRandomMovies(25);
+        var tenMovies = movieRep.getRandomMovies(10);
+        var oneMovie = movieRep.getRandomMovies(1);
+        var twentyFiveMovies = movieRep.getRandomMovies(25);
 
         assertEquals(1, oneMovie.size());
         assertEquals(10, tenMovies.size());

@@ -1,8 +1,9 @@
 package com.model.impl;
 
-import com.dao.MovieDao;
+import com.repository.MovieRepository;
 import com.entity.Movie;
-import com.entity.dto.MovieDto;
+import com.dto.MovieDto;
+import com.model.mapper.MovieMapperImpl;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -14,8 +15,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 
 class MovieServiceImplTest {
-    private static final MovieDao movieDao = mock(MovieDao.class);
-    private static final MovieServiceImpl movieService = new MovieServiceImpl(movieDao);
+    private static final MovieRepository movieDao = mock(MovieRepository.class);
+    private static final MovieServiceImpl movieService = new MovieServiceImpl(movieDao, new MovieMapperImpl());
     private static final List<Movie> movieActual = Arrays.asList(Movie.builder().id(1L).build(), Movie.builder().id(2L).build());
     private static final List<MovieDto> movieExpected = Arrays.asList(MovieDto.builder().id(1L).build(), MovieDto.builder().id(2L).build());
 

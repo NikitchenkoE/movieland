@@ -1,8 +1,9 @@
 package com.entity;
 
-import lombok.*;
-
-import java.util.List;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
@@ -14,9 +15,8 @@ public class Movie {
     private String nameNative;
     private int yearOfRelease;
     private String country;
-    private List<String> genres;
-    private String description;
     private String picturePath;
+    private String description;
     private double rating;
     private double price;
 }

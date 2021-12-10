@@ -1,6 +1,6 @@
 package com.model;
 
-import com.entity.dto.MovieDto;
+import com.dto.MovieDto;
 
 import java.util.List;
 

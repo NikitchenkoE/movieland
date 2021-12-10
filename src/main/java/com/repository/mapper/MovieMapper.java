@@ -1,4 +1,4 @@
-package com.dao.mapper;
+package com.repository.mapper;
 
 import com.entity.Movie;
 import org.springframework.jdbc.core.RowMapper;
@@ -17,8 +17,6 @@ public class MovieMapper implements RowMapper<Movie> {
                 .nameNative(resultSet.getString("nameNative"))
                 .yearOfRelease(resultSet.getInt("yearOfRelease"))
                 .country(resultSet.getString("country"))
-                .genres(Arrays.asList((String[]) resultSet.getArray("genres").getArray()))
-                .description(resultSet.getString("description"))
                 .picturePath(resultSet.getString("picturePath"))
                 .rating(resultSet.getDouble("rating"))
                 .price(resultSet.getDouble("price"))

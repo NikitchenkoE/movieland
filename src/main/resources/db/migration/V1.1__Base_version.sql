@@ -14,13 +14,6 @@ CREATE TABLE reviews
     reviewText          varchar
 );
 
-CREATE TABLE posters
-(
-    posterID            SERIAL NOT NULL PRIMARY KEY,
-    movieTitleInRussian varchar,
-    imagePath           varchar
-);
-
 CREATE TABLE movies
 (
     movieID       SERIAL NOT NULL PRIMARY KEY,
@@ -28,7 +21,6 @@ CREATE TABLE movies
     nameNative    varchar,
     yearOfRelease integer,
     country       varchar,
-    genres        varchar[],
     description   varchar,
     picturePath   varchar,
     rating        double precision,
@@ -38,10 +30,19 @@ CREATE TABLE movies
 
 CREATE TABLE genres
 (
-    posterID SERIAL NOT NULL PRIMARY KEY,
-    genre    varchar
+    genreID SERIAL NOT NULL PRIMARY KEY,
+    genre   varchar
 );
 
+
+CREATE TABLE StudentClassRelation
+(
+    movieID integer NOT NULL,
+    genreID integer NOT NULL,
+    FOREIGN KEY (movieID) REFERENCES movies (movieID),
+    FOREIGN KEY (genreID) REFERENCES genres (genreID),
+    UNIQUE (movieID, genreID)
+);
 
 
 
