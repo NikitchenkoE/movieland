@@ -17,7 +17,7 @@ public class MoviesController {
         this.movieService = movieService;
     }
 
-    @GetMapping(value = "/api/v1/movie")
+    @GetMapping(value = "/api/movie")
     public List<MovieDto> getAllMovies() {
         return movieService.getAllMovies();
     }
