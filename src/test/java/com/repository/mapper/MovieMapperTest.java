@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoSession;
 
-import java.sql.Array;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
