@@ -17,6 +17,9 @@ public class MovieRepJdbc implements MovieRepository {
             " country, picturePath, rating, price FROM movies";
     private static final String SELECT_RANDOM_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
             " country, picturePath, rating, price FROM movies ORDER BY random() LIMIT :count";
+    private static final String SELECT_MOVIES_BY_GENRE = "SELECT m.movieID, m.nameRussian, m.nameNative, m.yearOfRelease," +
+            " m.country, m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
+            " WHERE rl.genreid = :genreID";
     private JdbcTemplate jdbcTemplate;
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 
@@ -27,6 +30,10 @@ public class MovieRepJdbc implements MovieRepository {
 
     public List<Movie> getRandomMovies(int count) {
         return namedParameterJdbcTemplate.query(SELECT_RANDOM_MOVIES, Collections.singletonMap("count", count), new MovieMapper());
+    }
+
+    public List<Movie> getAllMoviesByGenreId(Long id) {
+        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE, Collections.singletonMap("genreID", id), new MovieMapper());
     }
 
     @Autowired

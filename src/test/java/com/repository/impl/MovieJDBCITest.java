@@ -78,4 +78,12 @@ class MovieJDBCITest {
         assertEquals(10, tenMovies.size());
         assertEquals(25, twentyFiveMovies.size());
     }
+
+    @Test
+    void testGetAllMoviesByGenreId() {
+        assertEquals(16, movieRep.getAllMoviesByGenreId(1L).size());
+        assertEquals(3, movieRep.getAllMoviesByGenreId(4L).size());
+        assertEquals(3, movieRep.getAllMoviesByGenreId(15L).size());
+        assertEquals(6, movieRep.getAllMoviesByGenreId(11L).size());
+    }
 }
