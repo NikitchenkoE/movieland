@@ -81,9 +81,9 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesByGenreId() {
-        assertEquals(16, movieRep.getAllMoviesByGenreId(1L).size());
-        assertEquals(3, movieRep.getAllMoviesByGenreId(4L).size());
-        assertEquals(3, movieRep.getAllMoviesByGenreId(15L).size());
-        assertEquals(6, movieRep.getAllMoviesByGenreId(11L).size());
+        assertEquals(16, movieRep.getMoviesByGenreId(1L).size());
+        assertEquals(3, movieRep.getMoviesByGenreId(4L).size());
+        assertEquals(3, movieRep.getMoviesByGenreId(15L).size());
+        assertEquals(6, movieRep.getMoviesByGenreId(11L).size());
     }
 }

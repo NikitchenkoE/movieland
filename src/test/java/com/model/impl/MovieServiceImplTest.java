@@ -23,6 +23,7 @@ class MovieServiceImplTest {
     @BeforeAll
     static void init() {
         Mockito.when(movieDao.getAllMovies()).thenReturn(movieActual);
+        Mockito.when(movieDao.getMoviesByGenreId(1L)).thenReturn(movieActual);
         Mockito.when(movieDao.getRandomMovies(2)).thenReturn(movieActual);
     }
 
@@ -37,4 +38,11 @@ class MovieServiceImplTest {
         List<MovieDto> allMovies = movieService.getRandomMovies(2);
         assertEquals(movieExpected, allMovies);
     }
+
+    @Test
+    void getMoviesByGenreId() {
+        List<MovieDto> allMovies = movieService.getMoviesByGenreId(1L);
+        assertEquals(movieExpected, allMovies);
+    }
+
 }

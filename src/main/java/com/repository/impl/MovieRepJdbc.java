@@ -32,7 +32,7 @@ public class MovieRepJdbc implements MovieRepository {
         return namedParameterJdbcTemplate.query(SELECT_RANDOM_MOVIES, Collections.singletonMap("count", count), new MovieMapper());
     }
 
-    public List<Movie> getAllMoviesByGenreId(Long id) {
+    public List<Movie> getMoviesByGenreId(Long id) {
         return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE, Collections.singletonMap("genreID", id), new MovieMapper());
     }
 

@@ -32,4 +32,11 @@ public class MovieServiceImpl implements MovieService {
                 .map(movieMapper::mapToDto)
                 .collect(Collectors.toList());
     }
+
+    public List<MovieDto> getMoviesByGenreId(Long id) {
+        log.info("Ger movies with genre id {}", id);
+        return movieDao.getMoviesByGenreId(id).stream()
+                .map(movieMapper::mapToDto)
+                .collect(Collectors.toList());
+    }
 }

@@ -101,4 +101,34 @@ class MoviesControllerITest {
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(3)));
     }
+
+    @Test
+    public void testgetMoviesByGenreIdShouldReturnMoviesDtoInJsonFormat() throws Exception {
+        when(movieService.getAllMovies()).thenReturn(movies);
+        mockMvc.perform(get("/movie/genre/1"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)))
+                .andExpect(jsonPath("$[0].id", is(1)))
+                .andExpect(jsonPath("$[1].id", is(2)))
+                .andExpect(jsonPath("$[15].id", is(25)))
+                .andExpect(jsonPath("$[0].nameRussian", is("Побег из Шоушенка")))
+                .andExpect(jsonPath("$[1].nameRussian", is("Зеленая миля")))
+                .andExpect(jsonPath("$[15].nameRussian", is("Танцующий с волками")))
+                .andExpect(jsonPath("$[0].nameNative", is("The Shawshank Redemption")))
+                .andExpect(jsonPath("$[1].nameNative", is("The Green Mile")))
+                .andExpect(jsonPath("$[15].nameNative", is("Dances with Wolves")))
+                .andExpect(jsonPath("$[0].yearOfRelease", is(1994)))
+                .andExpect(jsonPath("$[1].yearOfRelease", is(1999)))
+                .andExpect(jsonPath("$[15].yearOfRelease", is(1990)))
+                .andExpect(jsonPath("$[0].rating", is(8.90)))
+                .andExpect(jsonPath("$[1].rating", is(8.90)))
+                .andExpect(jsonPath("$[15].rating", is(8.00)))
+                .andExpect(jsonPath("$[0].price", is(123.45)))
+                .andExpect(jsonPath("$[1].price", is(134.67)))
+                .andExpect(jsonPath("$[15].price", is(120.55)))
+                .andExpect(jsonPath("$[0].picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1._SY209_CR0,0,140,209_.jpg")))
+                .andExpect(jsonPath("$[1].picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1._SY209_CR0,0,140,209_.jpg")))
+                .andExpect(jsonPath("$[15].picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BMTY3OTI5NDczN15BMl5BanBnXkFtZTcwNDA0NDY3Mw@@._V1._SX140_CR0,0,140,209_.jpg")));
+    }
 }
