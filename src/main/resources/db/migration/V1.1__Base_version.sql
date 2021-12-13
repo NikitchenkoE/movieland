@@ -35,7 +35,7 @@ CREATE TABLE genres
 );
 
 
-CREATE TABLE StudentClassRelation
+CREATE TABLE MovieGenreRelation
 (
     movieID integer NOT NULL,
     genreID integer NOT NULL,
