@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @EnableWebMvc
 @ComponentScan("com.web")
 @Configuration
-public class CinemaContext implements WebMvcConfigurer {
+public class CinemaConfig implements WebMvcConfigurer {
 
     @Override
     public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {

@@ -1,7 +1,7 @@
 package com.web.controller;
 
-import com.config.CinemaContext;
-import com.config.RootContext;
+import com.config.CinemaConfig;
+import com.config.RootConfig;
 import com.dto.MovieDto;
 import com.model.MovieService;
 import org.junit.jupiter.api.BeforeEach;
@@ -28,7 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {CinemaContext.class, RootContext.class})
+@ContextConfiguration(classes = {CinemaConfig.class, RootConfig.class})
 class MoviesControllerITest {
     private MockMvc mockMvc;
     private final MovieService movieService = mock(MovieService.class);
@@ -66,7 +66,7 @@ class MoviesControllerITest {
     @Test
     public void findAllServiceShouldGiveRightInformationAndControllerShouldReturnRightJson() throws Exception {
         when(movieService.getAllMovies()).thenReturn(movies);
-        mockMvc.perform(get("/api/movie"))
+        mockMvc.perform(get("/movie"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)))
@@ -96,7 +96,7 @@ class MoviesControllerITest {
     @Test
     public void findRandomNumberServiceShouldGiveRightInformationAndControllerShouldReturnRightJson() throws Exception {
         when(movieService.getAllMovies()).thenReturn(movies);
-        mockMvc.perform(get("/api/movie/random"))
+        mockMvc.perform(get("/movie/random"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(3)));

@@ -15,7 +15,7 @@ import javax.sql.DataSource;
 @ComponentScan({"com.model", "com.repository"})
 @PropertySource("classpath:application.properties")
 @Configuration
-public class RootContext implements WebMvcConfigurer {
+public class RootConfig implements WebMvcConfigurer {
     @Value("${db.user}")
     private String username;
     @Value("${db.password}")

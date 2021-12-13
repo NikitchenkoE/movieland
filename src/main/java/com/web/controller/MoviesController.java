@@ -17,12 +17,12 @@ public class MoviesController {
         this.movieService = movieService;
     }
 
-    @GetMapping(value = "/api/movie")
+    @GetMapping(value = "/movie")
     public List<MovieDto> getAllMovies() {
         return movieService.getAllMovies();
     }
 
-    @GetMapping(value = "/api/movie/random")
+    @GetMapping(value = "/movie/random")
     public List<MovieDto> getRandomMovies() {
         return movieService.getRandomMovies(3);
     }

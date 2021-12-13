@@ -1,25 +1,21 @@
 package com.config;
 
-import org.springframework.web.WebApplicationInitializer;
-import org.springframework.web.context.ContextLoaderListener;
-import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
-import org.springframework.web.servlet.DispatcherServlet;
+import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
-import javax.servlet.ServletContext;
-import javax.servlet.ServletRegistration;
-
-public class ApplicationInitializer implements WebApplicationInitializer {
+public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override
-    public void onStartup(ServletContext servletContext) {
-        AnnotationConfigWebApplicationContext webApplicationContext = new AnnotationConfigWebApplicationContext();
-        webApplicationContext.register(CinemaContext.class);
-        webApplicationContext.register(RootContext.class);
+    protected Class<?>[] getRootConfigClasses() {
+        return new Class<?>[] { RootConfig.class };
+    }
 
-        ServletRegistration.Dynamic dispatcher = servletContext.addServlet("cinema", new DispatcherServlet(webApplicationContext));
-        dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");
+    @Override
+    protected Class<?>[] getServletConfigClasses() {
+        return new Class<?>[] { CinemaConfig.class };
+    }
 
-        servletContext.addListener(new ContextLoaderListener(webApplicationContext));
+    @Override
+    protected String[] getServletMappings() {
+        return new String[] { "/api/v1/*" };
     }
 }
