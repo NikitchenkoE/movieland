@@ -28,7 +28,7 @@ class GenreMapperTest {
                 .name("Drama")
                 .build();
 
-        Genre actual = genreMapper.mapRow(resultSet,2);
+        Genre actual = genreMapper.mapRow(resultSet, 2);
 
         assertEquals(genreExpected, actual);
     }

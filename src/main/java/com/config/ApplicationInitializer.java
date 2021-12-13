@@ -6,16 +6,16 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class<?>[] { RootConfig.class };
+        return new Class<?>[]{RootConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[] { CinemaConfig.class };
+        return new Class<?>[]{CinemaConfig.class};
     }
 
     @Override
     protected String[] getServletMappings() {
-        return new String[] { "/api/v1/*" };
+        return new String[]{"/api/v1/*"};
     }
 }

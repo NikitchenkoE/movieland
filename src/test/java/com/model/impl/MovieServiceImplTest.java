@@ -1,9 +1,9 @@
 package com.model.impl;
 
-import com.repository.MovieRepository;
-import com.entity.Movie;
 import com.dto.MovieDto;
+import com.entity.Movie;
 import com.model.mapper.MovieMapperImpl;
+import com.repository.MovieRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;

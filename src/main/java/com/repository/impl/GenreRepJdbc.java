@@ -15,7 +15,7 @@ public class GenreRepJdbc implements GenreRepository {
     private JdbcTemplate jdbcTemplate;
 
     @Override
-    public List<Genre> getAllGenres(){
+    public List<Genre> getAllGenres() {
         return jdbcTemplate.query(SELECT_ALL_GENRES, new GenreMapper());
     }
 

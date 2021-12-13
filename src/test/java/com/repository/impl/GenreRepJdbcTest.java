@@ -14,12 +14,12 @@ import org.testcontainers.utility.DockerImageName;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Testcontainers
 class GenreRepJdbcTest {
 
-    private final GenreRepJdbc genreRepJdbc= new GenreRepJdbc();
+    private final GenreRepJdbc genreRepJdbc = new GenreRepJdbc();
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))

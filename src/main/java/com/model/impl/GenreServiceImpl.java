@@ -17,7 +17,7 @@ public class GenreServiceImpl implements GenreService {
     private final GenreMapper genreMapper;
 
     @Override
-    public List<GenreDto> getAllGenreDto(){
+    public List<GenreDto> getAllGenreDto() {
         return genreRepository.getAllGenres().stream()
                 .map(genreMapper::mapToDto)
                 .collect(Collectors.toList());
