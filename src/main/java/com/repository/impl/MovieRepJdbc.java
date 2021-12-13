@@ -12,7 +12,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-public class MovieRepImpl implements MovieRepository {
+public class MovieRepJdbc implements MovieRepository {
     private static final String SELECT_ALL_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
             " country, picturePath, rating, price FROM movies";
     private static final String SELECT_RANDOM_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +

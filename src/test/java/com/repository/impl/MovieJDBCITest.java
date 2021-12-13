@@ -19,7 +19,7 @@ import java.util.List;
 @Testcontainers
 class MovieJDBCITest {
 
-    private final MovieRepImpl movieRep = new MovieRepImpl();
+    private final MovieRepJdbc movieRep = new MovieRepJdbc();
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
