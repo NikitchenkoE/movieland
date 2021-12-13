@@ -1,19 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+    <property name="LOGS_PACKAGE" value="logs" />
 
     <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
         <layout class="ch.qos.logback.classic.PatternLayout">
-            <Pattern>
+            <pattern>
                 %d{yyyy-MM-dd HH:mm:ss} %-5level %logger{36} - %msg%n
-            </Pattern>
+            </pattern>
         </layout>
     </appender>
 
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOGS_PACKAGE}/movieland.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOGS_PACKAGE}/movieland-%d{yyyy-MM-dd}.log.%i</fileNamePattern>
+            <maxHistory>1</maxHistory>
+            <maxFileSize>5MB</maxFileSize>
+        </rollingPolicy>
+        <encoder>
+            <pattern>%date %level [%thread] %logger{10} [%file:%line] %msg%n</pattern>
+        </encoder>
+    </appender>
+
+    <logger name="com" level="info" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
+
     <logger name="org.springframework" level="debug" additivity="false">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </logger>
 
     <logger name="com" level="debug" additivity="false">
+        <appender-ref ref="FILE" />
         <appender-ref ref="STDOUT" />
     </logger>
 
