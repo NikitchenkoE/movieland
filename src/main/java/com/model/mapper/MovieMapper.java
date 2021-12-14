@@ -4,7 +4,9 @@ import com.dto.MovieDto;
 import com.entity.Movie;
 import org.mapstruct.Mapper;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface MovieMapper {
-    MovieDto mapToDto(Movie movie);
+    List<MovieDto> mapListMovieToMovieDto(List<Movie> movieList);
 }

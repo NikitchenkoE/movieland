@@ -8,7 +8,6 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -18,8 +17,6 @@ public class GenreServiceImpl implements GenreService {
 
     @Override
     public List<GenreDto> getAllGenreDto() {
-        return genreRepository.getAllGenres().stream()
-                .map(genreMapper::mapToDto)
-                .collect(Collectors.toList());
+        return genreMapper.mapListGenreToGenreDto(genreRepository.getAllGenres());
     }
 }

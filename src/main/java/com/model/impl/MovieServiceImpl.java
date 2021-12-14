@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -21,22 +20,16 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieDto> getAllMovies() {
         log.info("Get all movies");
-        return movieDao.getAllMovies().stream()
-                .map(movieMapper::mapToDto)
-                .collect(Collectors.toList());
+        return movieMapper.mapListMovieToMovieDto(movieDao.getAllMovies());
     }
 
     public List<MovieDto> getRandomMovies(int count) {
         log.info("Ger {} random movie", count);
-        return movieDao.getRandomMovies(count).stream()
-                .map(movieMapper::mapToDto)
-                .collect(Collectors.toList());
+        return movieMapper.mapListMovieToMovieDto(movieDao.getRandomMovies(count));
     }
 
     public List<MovieDto> getMoviesByGenreId(Long id) {
         log.info("Ger movies with genre id {}", id);
-        return movieDao.getMoviesByGenreId(id).stream()
-                .map(movieMapper::mapToDto)
-                .collect(Collectors.toList());
+        return movieMapper.mapListMovieToMovieDto(movieDao.getMoviesByGenreId(id));
     }
 }
