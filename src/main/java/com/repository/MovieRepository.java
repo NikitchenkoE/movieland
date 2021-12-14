@@ -15,4 +15,12 @@ public interface MovieRepository {
 
     List<Movie> getMoviesByGenreIdSortedByRating(Long id);
 
+    List<Movie> getAllMoviesSortedByPriceDESC();
+
+    List<Movie> getAllMoviesSortedByPriceASC();
+
+    List<Movie> getMoviesByGenreIdSortedByPriceDESC(Long id);
+
+    List<Movie> getMoviesByGenreIdSortedByPriceASC(Long id);
+
 }

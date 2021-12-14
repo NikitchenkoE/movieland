@@ -106,4 +106,44 @@ class MovieJDBCITest {
             assertTrue(thisMovie.getRating() >= nextMovie.getRating());
         }
     }
+
+    @Test
+    void testGetAllMoviesOrderByPriceDESC() {
+        List<Movie> allMoviesSortedByPriceDesc = movieRep.getAllMoviesSortedByPriceDESC();
+        for (int i = 0; i < allMoviesSortedByPriceDesc.size() - 1; i++) {
+            Movie thisMovie = allMoviesSortedByPriceDesc.get(i);
+            Movie nextMovie = allMoviesSortedByPriceDesc.get(i + 1);
+            assertTrue(thisMovie.getPrice() >= nextMovie.getPrice());
+        }
+    }
+
+    @Test
+    void testGetAllMoviesOrderByPriceASC() {
+        List<Movie> allMoviesSortedByPriceAsc = movieRep.getAllMoviesSortedByPriceASC();
+        for (int i = 0; i < allMoviesSortedByPriceAsc.size() - 1; i++) {
+            Movie thisMovie = allMoviesSortedByPriceAsc.get(i);
+            Movie nextMovie = allMoviesSortedByPriceAsc.get(i + 1);
+            assertTrue(thisMovie.getPrice() <= nextMovie.getPrice());
+        }
+    }
+
+    @Test
+    void testGetAllMoviesByGenreOrderByPriceDESC() {
+        List<Movie> moviesByGenreSortedByPriceDesc = movieRep.getMoviesByGenreIdSortedByPriceDESC(1L);
+        for (int i = 0; i < moviesByGenreSortedByPriceDesc.size() - 1; i++) {
+            Movie thisMovie = moviesByGenreSortedByPriceDesc.get(i);
+            Movie nextMovie = moviesByGenreSortedByPriceDesc.get(i + 1);
+            assertTrue(thisMovie.getPrice() >= nextMovie.getPrice());
+        }
+    }
+
+    @Test
+    void testGetAllMoviesByGenreOrderByPriceASC() {
+        List<Movie> moviesByGenreSortedByPriceAsc = movieRep.getMoviesByGenreIdSortedByPriceASC(1L);
+        for (int i = 0; i < moviesByGenreSortedByPriceAsc.size() - 1; i++) {
+            Movie thisMovie = moviesByGenreSortedByPriceAsc.get(i);
+            Movie nextMovie = moviesByGenreSortedByPriceAsc.get(i + 1);
+            assertTrue(thisMovie.getPrice() <= nextMovie.getPrice());
+        }
+    }
 }
