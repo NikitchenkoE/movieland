@@ -24,15 +24,19 @@ import javax.sql.DataSource;
 public class SpringTestContext implements WebMvcConfigurer {
 
     @Bean
-    public DataSource ortiginalDataSource(@Value("${db.user}") String username,
-                                          @Value("${db.password}") String password,
-                                          @Value("${db.url}") String url,
-                                          @Value("${db.driver}") String driverClassName) {
+    public DataSource dataSource(@Value("${db.user}") String username,
+                                 @Value("${db.password}") String password,
+                                 @Value("${db.url}") String url,
+                                 @Value("${db.driver}") String driverClassName,
+                                 @Value("${hikari.config.pool.size}") int size,
+                                 @Value("${hikari.config.life.time}") long time) {
         var config = new HikariConfig();
         config.setUsername(username);
         config.setPassword(password);
         config.setJdbcUrl(url);
         config.setDriverClassName(driverClassName);
+        config.setMaximumPoolSize(size);
+        config.setMaxLifetime(time);
         return new HikariDataSource(config);
     }
 

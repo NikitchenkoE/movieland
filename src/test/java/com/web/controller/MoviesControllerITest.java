@@ -1,5 +1,6 @@
 package com.web.controller;
 
+import com.config.SpringTestContext;
 import com.config.WebConfig;
 import com.config.RootConfig;
 import com.dto.MovieDto;
@@ -28,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {WebConfig.class, RootConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, SpringTestContext.class})
 class MoviesControllerITest {
     private MockMvc mockMvc;
     private final MovieService movieService = mock(MovieService.class);
