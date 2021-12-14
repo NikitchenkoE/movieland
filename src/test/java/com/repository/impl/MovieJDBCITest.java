@@ -7,6 +7,7 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -20,7 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 @Testcontainers
 class MovieJDBCITest {
 
-    private final MovieRepJdbc movieRep = new MovieRepJdbc();
+    private MovieRepJdbc movieRep;
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
@@ -42,7 +43,7 @@ class MovieJDBCITest {
                 .load();
         flyway.migrate();
 
-        movieRep.setJdbcTemplate(new JdbcTemplate(dataSource));
+        movieRep = new MovieRepJdbc(new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource)));
     }
 
     @Test

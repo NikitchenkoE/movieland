@@ -31,6 +31,7 @@ class CachedGenreServiceImplTest {
             cachedGenreService.getAllGenreDto();
         }
         assertEquals(1, QueryCountHolder.getGrandTotal().getTotal());
+        QueryCountHolder.clear();
     }
 
     @Test
@@ -39,5 +40,6 @@ class CachedGenreServiceImplTest {
             genreService.getAllGenreDto();
         }
         assertEquals(5, QueryCountHolder.getGrandTotal().getTotal());
+        QueryCountHolder.clear();
     }
 }

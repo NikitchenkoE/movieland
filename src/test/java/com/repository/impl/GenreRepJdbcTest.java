@@ -7,6 +7,7 @@ import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
@@ -19,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class GenreRepJdbcTest {
 
-    private final GenreRepJdbc genreRepJdbc = new GenreRepJdbc();
+    private GenreRepJdbc genreRepJdbc;
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
@@ -41,7 +42,7 @@ class GenreRepJdbcTest {
                 .load();
         flyway.migrate();
 
-        genreRepJdbc.setJdbcTemplate(new JdbcTemplate(dataSource));
+        genreRepJdbc = new GenreRepJdbc(new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource)));
     }
 
     @Test
