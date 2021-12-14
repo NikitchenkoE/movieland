@@ -108,10 +108,91 @@ class MoviesControllerITest {
     }
 
     @Test
+    public void testGetAllMoviesSortedByRatingCapital() throws Exception {
+        mockMvc.perform(get("/movie?rating=DESC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(25)));
+    }
+
+    @Test
     public void testGetMoviesByGenreIdSortedByRating() throws Exception {
         mockMvc.perform(get("/movie/genre/1?rating=desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
     }
+
+    @Test
+    public void testGetMoviesByGenreIdSortedByCapital() throws Exception {
+        mockMvc.perform(get("/movie/genre/1?rating=DESC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)));
+    }
+
+    @Test
+    public void testGetAllMoviesSortedByPriceDesc() throws Exception {
+        mockMvc.perform(get("/movie?price=desc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(25)));
+    }
+
+    @Test
+    public void testGetAllMoviesSortedByPriceDescCapital() throws Exception {
+        mockMvc.perform(get("/movie?price=DESC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(25)));
+    }
+
+    @Test
+    public void testGetAllMoviesSortedByPriceAsc() throws Exception {
+        mockMvc.perform(get("/movie?price=asc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(25)));
+    }
+
+    @Test
+    public void testGetAllMoviesSortedByPriceAscCapital() throws Exception {
+        mockMvc.perform(get("/movie?price=ASC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(25)));
+    }
+
+    @Test
+    public void testGetMoviesByGenreIdSortedByPriceDesc() throws Exception {
+        mockMvc.perform(get("/movie/genre/1?price=desc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)));
+    }
+
+    @Test
+    public void testGetMoviesByGenreIdSortedByPriceDescCapital() throws Exception {
+        mockMvc.perform(get("/movie/genre/1?price=DESC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)));
+    }
+
+    @Test
+    public void testGetMoviesByGenreIdSortedByPriceAscCapital() throws Exception {
+        mockMvc.perform(get("/movie/genre/1?price=ASC"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)));
+    }
+
+    @Test
+    public void testGetMoviesByGenreIdSortedByPriceAsc() throws Exception {
+        mockMvc.perform(get("/movie/genre/1?price=asc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)));
+    }
+
 }
