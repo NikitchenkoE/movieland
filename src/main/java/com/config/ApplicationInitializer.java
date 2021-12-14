@@ -11,7 +11,7 @@ public class ApplicationInitializer extends AbstractAnnotationConfigDispatcherSe
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{CinemaConfig.class};
+        return new Class<?>[]{WebConfig.class};
     }
 
     @Override

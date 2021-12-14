@@ -1,6 +1,6 @@
 package com.model.impl;
 
-import com.config.CinemaConfig;
+import com.config.WebConfig;
 import com.config.SpringTestContext;
 import com.model.GenreService;
 import net.ttddyy.dsproxy.QueryCountHolder;
@@ -14,7 +14,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {CinemaConfig.class, SpringTestContext.class})
+@ContextConfiguration(classes = {WebConfig.class, SpringTestContext.class})
 
 class CachedGenreServiceImplTest {
     @Autowired

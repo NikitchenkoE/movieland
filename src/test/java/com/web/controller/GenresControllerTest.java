@@ -1,6 +1,6 @@
 package com.web.controller;
 
-import com.config.CinemaConfig;
+import com.config.WebConfig;
 import com.config.RootConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -21,7 +21,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
-@ContextConfiguration(classes = {CinemaConfig.class, RootConfig.class})
+@ContextConfiguration(classes = {WebConfig.class, RootConfig.class})
 class GenresControllerTest {
     private MockMvc mockMvc;
     @Autowired
