@@ -1,44 +1,43 @@
 package com.model.impl;
 
-import com.dto.GenreDto;
-import com.entity.Genre;
+import com.config.CinemaConfig;
+import com.config.SpringTestContext;
 import com.model.GenreService;
-import com.model.mapper.GenreMapperImpl;
-import com.repository.impl.GenreRepJdbc;
-import org.junit.jupiter.api.BeforeAll;
+import net.ttddyy.dsproxy.QueryCountHolder;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
-
-import java.util.Arrays;
-import java.util.List;
-
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static org.mockito.Mockito.mock;
+@ExtendWith(SpringExtension.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = {CinemaConfig.class, SpringTestContext.class})
 
 class CachedGenreServiceImplTest {
-    private static final GenreRepJdbc genreRepJdbc = mock(GenreRepJdbc.class);
-    private static final GenreServiceImpl genreService = new GenreServiceImpl(genreRepJdbc, new GenreMapperImpl());
-    private static final GenreService cachedGenreService = new CachedGenreServiceImpl(genreService);
-    private static final List<Genre> genreListOldData = Arrays.asList(new Genre(1L, "drama"), new Genre(2L, "comedy"));
-    private static final List<Genre> genreListNewData = Arrays.asList(new Genre(1L, "comedy"), new Genre(2L, "drama"));
+    @Autowired
+    @Qualifier("cachedGenreServiceImpl")
+    private GenreService cachedGenreService;
 
-    @BeforeAll
-    static void init() {
-        Mockito.when(genreRepJdbc.getAllGenres()).thenReturn(genreListOldData).thenReturn(genreListNewData);
+    @Autowired
+    @Qualifier("genreServiceImpl")
+    private GenreService genreService;
+
+    @Test
+    public void testCountOfQueryToDbShouldBe1(){
+        for (int i = 0; i<10000; i++){
+            cachedGenreService.getAllGenreDto();
+        }
+        assertEquals(1, QueryCountHolder.getGrandTotal().getTotal());
     }
 
     @Test
-    void testTryToGetDataAfterChangeShouldReturnOldData() {
-        List<GenreDto> allGenreDtoOldData = cachedGenreService.getAllGenreDto();
-        List<GenreDto> allGenreDtoNewData = cachedGenreService.getAllGenreDto();
-        assertEquals(allGenreDtoOldData, allGenreDtoNewData);
-    }
-
-    @Test
-    void testTryToGetDataAfterChangeShouldReturnNewData() {
-        List<GenreDto> allGenreDtoOldData = genreService.getAllGenreDto();
-        List<GenreDto> allGenreDtoNewData = genreService.getAllGenreDto();
-        assertNotEquals(allGenreDtoOldData, allGenreDtoNewData);
+    public void testCountOfQueryToDbShouldBe5(){
+        for (int i = 0; i<5; i++){
+            genreService.getAllGenreDto();
+        }
+        assertEquals(5, QueryCountHolder.getGrandTotal().getTotal());
     }
 }
