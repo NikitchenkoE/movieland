@@ -2,7 +2,6 @@ package com.web.controller;
 
 import com.config.SpringTestContext;
 import com.config.WebConfig;
-import com.config.RootConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

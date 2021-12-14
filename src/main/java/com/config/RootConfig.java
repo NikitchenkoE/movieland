@@ -41,7 +41,7 @@ public class RootConfig implements WebMvcConfigurer {
     }
 
     @Bean
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate(JdbcTemplate jdbcTemplate){
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate(JdbcTemplate jdbcTemplate) {
         return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }

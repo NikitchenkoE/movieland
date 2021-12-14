@@ -2,7 +2,6 @@ package com.config;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
-import net.ttddyy.dsproxy.QueryCountHolder;
 import net.ttddyy.dsproxy.listener.ChainListener;
 import net.ttddyy.dsproxy.listener.DataSourceQueryCountListener;
 import net.ttddyy.dsproxy.listener.logging.SLF4JQueryLoggingListener;
@@ -25,11 +24,11 @@ public class SpringTestContext implements WebMvcConfigurer {
 
     @Bean
     public DataSource originalDataSource(@Value("${db.user}") String username,
-                                 @Value("${db.password}") String password,
-                                 @Value("${db.url}") String url,
-                                 @Value("${db.driver}") String driverClassName,
-                                 @Value("${hikari.config.pool.size}") int size,
-                                 @Value("${hikari.config.life.time}") long time) {
+                                         @Value("${db.password}") String password,
+                                         @Value("${db.url}") String url,
+                                         @Value("${db.driver}") String driverClassName,
+                                         @Value("${hikari.config.pool.size}") int size,
+                                         @Value("${hikari.config.life.time}") long time) {
         var config = new HikariConfig();
         config.setUsername(username);
         config.setPassword(password);
@@ -60,7 +59,7 @@ public class SpringTestContext implements WebMvcConfigurer {
     }
 
     @Bean
-    NamedParameterJdbcTemplate namedParameterJdbcTemplate(JdbcTemplate jdbcTemplate){
+    NamedParameterJdbcTemplate namedParameterJdbcTemplate(JdbcTemplate jdbcTemplate) {
         return new NamedParameterJdbcTemplate(jdbcTemplate);
     }
 }

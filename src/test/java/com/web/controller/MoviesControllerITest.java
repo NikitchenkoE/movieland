@@ -2,7 +2,6 @@ package com.web.controller;
 
 import com.config.SpringTestContext;
 import com.config.WebConfig;
-import com.config.RootConfig;
 import com.dto.MovieDto;
 import com.model.MovieService;
 import org.junit.jupiter.api.BeforeEach;

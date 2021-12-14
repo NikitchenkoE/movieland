@@ -13,11 +13,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CachedGenreServiceImpl implements GenreService{
+public class CachedGenreServiceImpl implements GenreService {
     private final GenreServiceImpl genreService;
     private List<GenreDto> genreCache = new ArrayList<>();
 
-    public List<GenreDto> getAllGenreDto(){
+    public List<GenreDto> getAllGenreDto() {
         log.info("get cached list of GenreDto");
         if (genreCache.isEmpty()) {
             genreCache = genreService.getAllGenreDto();
