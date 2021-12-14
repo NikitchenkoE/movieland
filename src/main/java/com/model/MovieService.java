@@ -1,13 +1,14 @@
 package com.model;
 
 import com.dto.MovieDto;
+import com.dto.MovieRequestData;
 
 import java.util.List;
 
 public interface MovieService {
-    List<MovieDto> getAllMovies();
+    List<MovieDto> getAllMovies(MovieRequestData movieRequestData);
 
     List<MovieDto> getRandomMovies(int count);
 
-    List<MovieDto> getMoviesByGenreId(Long id);
+    List<MovieDto> getMoviesByGenreId(MovieRequestData movieRequestData);
 }

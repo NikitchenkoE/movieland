@@ -88,22 +88,22 @@ class MovieJDBCITest {
     }
 
     @Test
-    void  testGetAllMoviesOrderByRating(){
+    void testGetAllMoviesOrderByRating() {
         List<Movie> allMoviesSortedByRating = movieRep.getAllMoviesSortedByRating();
-        for (int i = 0; i < allMoviesSortedByRating.size()-1; i++) {
+        for (int i = 0; i < allMoviesSortedByRating.size() - 1; i++) {
             Movie thisMovie = allMoviesSortedByRating.get(i);
-            Movie nextMovie = allMoviesSortedByRating.get(i+1);
-            assertTrue(thisMovie.getRating()>=nextMovie.getRating());
+            Movie nextMovie = allMoviesSortedByRating.get(i + 1);
+            assertTrue(thisMovie.getRating() >= nextMovie.getRating());
         }
     }
 
     @Test
-    void  testGetAllMoviesByGenreOrderByRating(){
+    void testGetAllMoviesByGenreOrderByRating() {
         List<Movie> moviesByGenreSortedByRating = movieRep.getMoviesByGenreIdSortedByRating(1L);
-        for (int i = 0; i < moviesByGenreSortedByRating.size()-1; i++) {
+        for (int i = 0; i < moviesByGenreSortedByRating.size() - 1; i++) {
             Movie thisMovie = moviesByGenreSortedByRating.get(i);
-            Movie nextMovie = moviesByGenreSortedByRating.get(i+1);
-            assertTrue(thisMovie.getRating()>=nextMovie.getRating());
+            Movie nextMovie = moviesByGenreSortedByRating.get(i + 1);
+            assertTrue(thisMovie.getRating() >= nextMovie.getRating());
         }
     }
 }

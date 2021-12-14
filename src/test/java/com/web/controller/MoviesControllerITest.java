@@ -2,8 +2,6 @@ package com.web.controller;
 
 import com.config.SpringTestContext;
 import com.config.WebConfig;
-import com.dto.MovieDto;
-import com.model.MovieService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,13 +14,8 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import java.util.Arrays;
-import java.util.List;
-
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -31,32 +24,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration(classes = {WebConfig.class, SpringTestContext.class})
 class MoviesControllerITest {
     private MockMvc mockMvc;
-    private final MovieService movieService = mock(MovieService.class);
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
-    MovieDto movieDto = MovieDto.builder()
-            .id(1L)
-            .nameRussian("Руский")
-            .nameNative("Native")
-            .yearOfRelease(1000)
-            .price(100.00)
-            .rating(10.00)
-            .picturePath("path")
-            .build();
-
-    MovieDto movieDto2 = MovieDto.builder()
-            .id(1L)
-            .nameRussian("Руский2")
-            .nameNative("Native2")
-            .yearOfRelease(100)
-            .price(12.00)
-            .rating(8.00)
-            .picturePath("path2")
-            .build();
-
-    List<MovieDto> movies = Arrays.asList(movieDto, movieDto2);
 
     @BeforeEach
     public void setup() {
@@ -65,7 +35,6 @@ class MoviesControllerITest {
 
     @Test
     public void findAllServiceShouldGiveRightInformationAndControllerShouldReturnRightJson() throws Exception {
-        when(movieService.getAllMovies()).thenReturn(movies);
         mockMvc.perform(get("/movie"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -95,7 +64,6 @@ class MoviesControllerITest {
 
     @Test
     public void findRandomNumberServiceShouldGiveRightInformationAndControllerShouldReturnRightJson() throws Exception {
-        when(movieService.getAllMovies()).thenReturn(movies);
         mockMvc.perform(get("/movie/random"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -104,7 +72,6 @@ class MoviesControllerITest {
 
     @Test
     public void testgetMoviesByGenreIdShouldReturnMoviesDtoInJsonFormat() throws Exception {
-        when(movieService.getAllMovies()).thenReturn(movies);
         mockMvc.perform(get("/movie/genre/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
@@ -130,5 +97,21 @@ class MoviesControllerITest {
                 .andExpect(jsonPath("$[0].picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1._SY209_CR0,0,140,209_.jpg")))
                 .andExpect(jsonPath("$[1].picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BMTUxMzQyNjA5MF5BMl5BanBnXkFtZTYwOTU2NTY3._V1._SY209_CR0,0,140,209_.jpg")))
                 .andExpect(jsonPath("$[15].picturePath", is("https://images-na.ssl-images-amazon.com/images/M/MV5BMTY3OTI5NDczN15BMl5BanBnXkFtZTcwNDA0NDY3Mw@@._V1._SX140_CR0,0,140,209_.jpg")));
+    }
+
+    @Test
+    public void testGetAllMoviesSortedByRating() throws Exception {
+        mockMvc.perform(get("/movie?rating=desc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(25)));
+    }
+
+    @Test
+    public void testGetMoviesByGenreIdSortedByRating() throws Exception {
+        mockMvc.perform(get("/movie/genre/1?rating=desc"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$", hasSize(16)));
     }
 }
