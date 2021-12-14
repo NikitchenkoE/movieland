@@ -40,7 +40,7 @@ class MovieServiceImplTest {
 
     @Test
     void getRandomMovies() {
-        List<MovieDto> allMovies = movieService.getRandomMovies(2);
+        List<MovieDto> allMovies = movieService.getRandomMovies(MovieRequestData.builder().countOfRandomMovies(2).build());
         assertEquals(movieExpected, allMovies);
     }
 

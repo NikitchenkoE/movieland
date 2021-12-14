@@ -8,7 +8,7 @@ import java.util.List;
 public interface MovieService {
     List<MovieDto> getAllMovies(MovieRequestData movieRequestData);
 
-    List<MovieDto> getRandomMovies(int count);
+    List<MovieDto> getRandomMovies(MovieRequestData movieRequestData);
 
     List<MovieDto> getMoviesByGenreId(MovieRequestData movieRequestData);
 }

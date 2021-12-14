@@ -29,9 +29,9 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
-    public List<MovieDto> getRandomMovies(int count) {
-        log.info("Ger {} random movie", count);
-        return movieMapper.mapListMovieToMovieDto(movieDao.getRandomMovies(count));
+    public List<MovieDto> getRandomMovies(MovieRequestData movieRequestData) {
+        log.info("Ger {} random movie", movieRequestData.getCountOfRandomMovies());
+        return movieMapper.mapListMovieToMovieDto(movieDao.getRandomMovies(movieRequestData.getCountOfRandomMovies()));
     }
 
     public List<MovieDto> getMoviesByGenreId(MovieRequestData movieRequestData) {

@@ -31,7 +31,7 @@ public class MoviesController {
 
     @GetMapping(value = "/movie/random")
     public List<MovieDto> getRandomMovies() {
-        return movieService.getRandomMovies(3);
+        return movieService.getRandomMovies(MovieRequestData.builder().countOfRandomMovies(3).build());
     }
 
     @GetMapping(value = "/movie/genre/{genreId}")
