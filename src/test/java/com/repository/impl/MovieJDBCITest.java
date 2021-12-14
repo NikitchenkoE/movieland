@@ -15,8 +15,7 @@ import org.testcontainers.utility.DockerImageName;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @Testcontainers
 class MovieJDBCITest {
@@ -86,5 +85,25 @@ class MovieJDBCITest {
         assertEquals(3, movieRep.getMoviesByGenreId(4L).size());
         assertEquals(3, movieRep.getMoviesByGenreId(15L).size());
         assertEquals(6, movieRep.getMoviesByGenreId(11L).size());
+    }
+
+    @Test
+    void  testGetAllMoviesOrderByRating(){
+        List<Movie> allMoviesSortedByRating = movieRep.getAllMoviesSortedByRating();
+        for (int i = 0; i < allMoviesSortedByRating.size()-1; i++) {
+            Movie thisMovie = allMoviesSortedByRating.get(i);
+            Movie nextMovie = allMoviesSortedByRating.get(i+1);
+            assertTrue(thisMovie.getRating()>=nextMovie.getRating());
+        }
+    }
+
+    @Test
+    void  testGetAllMoviesByGenreOrderByRating(){
+        List<Movie> moviesByGenreSortedByRating = movieRep.getMoviesByGenreIdSortedByRating(1L);
+        for (int i = 0; i < moviesByGenreSortedByRating.size()-1; i++) {
+            Movie thisMovie = moviesByGenreSortedByRating.get(i);
+            Movie nextMovie = moviesByGenreSortedByRating.get(i+1);
+            assertTrue(thisMovie.getRating()>=nextMovie.getRating());
+        }
     }
 }
