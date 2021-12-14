@@ -24,7 +24,7 @@ import javax.sql.DataSource;
 public class SpringTestContext implements WebMvcConfigurer {
 
     @Bean
-    public DataSource dataSource(@Value("${db.user}") String username,
+    public DataSource originalDataSource(@Value("${db.user}") String username,
                                  @Value("${db.password}") String password,
                                  @Value("${db.url}") String url,
                                  @Value("${db.driver}") String driverClassName,
