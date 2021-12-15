@@ -1,6 +1,7 @@
 package com.web.controller;
 
 import com.dto.MovieDto;
+import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
 import com.model.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,5 +44,10 @@ public class MoviesController {
                 .priceRequestInfo(priceRequestParam)
                 .genreId(id)
                 .build());
+    }
+
+    @GetMapping("/movie/{movieId}")
+    public MovieExtendedInformationDto getMovieById(@PathVariable(name = "movieId") Long movieId){
+        return movieService.getMovieById(movieId);
     }
 }

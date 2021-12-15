@@ -1,8 +1,10 @@
 package com.model.impl;
 
 import com.dto.MovieDto;
+import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
 import com.model.MovieService;
+import com.model.mapper.MovieExtendedInformationMapper;
 import com.model.mapper.MovieMapper;
 import com.repository.MovieRepository;
 import lombok.AllArgsConstructor;
@@ -17,6 +19,7 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieDao;
     private final MovieMapper movieMapper;
+    private final MovieExtendedInformationMapper movieExtendedInformationMapper;
 
     @Override
     public List<MovieDto> getRandomMovies(MovieRequestData movieRequestData) {
@@ -50,6 +53,10 @@ public class MovieServiceImpl implements MovieService {
             result = movieMapper.mapListMovieToMovieDto(movieDao.getMoviesByGenreId(movieRequestData.getGenreId()));
         }
         return result;
+    }
+
+    public MovieExtendedInformationDto getMovieById(Long id){
+        return movieExtendedInformationMapper.mapToMovieExtendedInformationDto(movieDao.getMovieById(id));
     }
 
     private List<MovieDto> getAllMoviesOrderByRating(String ratingRequestInfo) {

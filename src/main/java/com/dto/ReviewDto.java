@@ -12,6 +12,6 @@ import lombok.NoArgsConstructor;
 @Data
 public class ReviewDto {
     private Long id;
-    private UserDto userDto;
+    private UserDto user;
     private String text;
 }

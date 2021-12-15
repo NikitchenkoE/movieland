@@ -4,7 +4,7 @@ import com.entity.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 class MovieJDBCITest {
 
-    private MovieRepositoryJdbc movieRep;
+    private static MovieRepositoryJdbc movieRep;
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
@@ -30,14 +30,14 @@ class MovieJDBCITest {
             .withPassword("password")
             .withDatabaseName("testDb");
 
-    @BeforeEach
-    void init() {
-        var config = new HikariConfig();
-        config.setUsername(container.getUsername());
-        config.setPassword(container.getPassword());
-        config.setJdbcUrl(container.getJdbcUrl());
-        config.setDriverClassName(container.getDriverClassName());
-        var dataSource = new HikariDataSource(config);
+    @BeforeAll
+    static void init() {
+        var hikariConfig = new HikariConfig();
+        hikariConfig.setUsername(container.getUsername());
+        hikariConfig.setPassword(container.getPassword());
+        hikariConfig.setJdbcUrl(container.getJdbcUrl());
+        hikariConfig.setDriverClassName(container.getDriverClassName());
+        var dataSource = new HikariDataSource(hikariConfig);
 
         Flyway flyway = Flyway.configure()
                 .dataSource(dataSource)
