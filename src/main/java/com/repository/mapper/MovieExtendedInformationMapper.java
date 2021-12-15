@@ -45,9 +45,9 @@ public class MovieExtendedInformationMapper implements RowMapper<MovieExtendedIn
                     .description(resultSet.getString("description"))
                     .rating(resultSet.getDouble("rating"))
                     .price(resultSet.getDouble("price"))
-                    .countriesSet(countriesSet)
-                    .genresSet(genresSet)
-                    .reviewsSet(reviewsSet)
+                    .countries(countriesSet)
+                    .genres(genresSet)
+                    .reviews(reviewsSet)
                     .build();
         }
         return movieExtendedInformation;

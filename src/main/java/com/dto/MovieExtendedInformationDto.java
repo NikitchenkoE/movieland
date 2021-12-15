@@ -16,11 +16,11 @@ public class MovieExtendedInformationDto {
     private String nameRussian;
     private String nameNative;
     private int yearOfRelease;
-    private String picturePath;
     private String description;
     private double rating;
     private double price;
-    private Set<CountryDto> countriesSet;
-    private Set<GenreDto> genresSet;
-    private Set<ReviewDto> reviewsSet;
+    private String picturePath;
+    private Set<CountryDto> countries;
+    private Set<GenreDto> genres;
+    private Set<ReviewDto> reviews;
 }

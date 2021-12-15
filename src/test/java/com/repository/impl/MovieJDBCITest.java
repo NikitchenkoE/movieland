@@ -184,9 +184,9 @@ class MovieJDBCITest {
                 .description("Успешный банкир Энди Дюфрейн обвинен в убийстве собственной жены и ее любовника. Оказавшись в тюрьме под названием Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решетки. Каждый, кто попадает в эти стены, становится их рабом до конца жизни. Но Энди, вооруженный живым умом и доброй душой, отказывается мириться с приговором судьбы и начинает разрабатывать невероятно дерзкий план своего освобождения.")
                 .rating(8.9)
                 .price(123.45)
-                .countriesSet(countriesSet)
-                .genresSet(genresSet)
-                .reviewsSet(reviewsSet)
+                .countries(countriesSet)
+                .genres(genresSet)
+                .reviews(reviewsSet)
                 .build();
 
         MovieExtendedInformation movieActual = movieRep.getMovieById(1L);

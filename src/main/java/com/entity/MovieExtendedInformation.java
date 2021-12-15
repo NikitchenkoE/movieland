@@ -21,7 +21,7 @@ public class MovieExtendedInformation {
     private String description;
     private double rating;
     private double price;
-    private Set<Country> countriesSet;
-    private Set<Genre> genresSet;
-    private Set<Review> reviewsSet;
+    private Set<Country> countries;
+    private Set<Genre> genres;
+    private Set<Review> reviews;
 }
