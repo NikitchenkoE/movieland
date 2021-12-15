@@ -14,7 +14,6 @@ public class Movie {
     private String nameRussian;
     private String nameNative;
     private int yearOfRelease;
-    private String country;
     private String picturePath;
     private String description;
     private double rating;

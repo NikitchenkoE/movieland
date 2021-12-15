@@ -14,34 +14,34 @@ import java.util.List;
 @Repository
 public class MovieRepositoryJdbc implements MovieRepository {
     private static final String SELECT_ALL_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
-            " country, picturePath, rating, price FROM movies";
+            "  picturePath, rating, price FROM movies";
 
     private static final String SELECT_ALL_MOVIES_ORDER_BY_RATING = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
-            " country, picturePath, rating, price FROM movies ORDER BY rating DESC";
+            "  picturePath, rating, price FROM movies ORDER BY rating DESC";
 
     private static final String SELECT_RANDOM_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
-            " country, picturePath, rating, price FROM movies ORDER BY random() LIMIT :count";
+            "  picturePath, rating, price FROM movies ORDER BY random() LIMIT :count";
 
     private static final String SELECT_MOVIES_BY_GENRE = "SELECT m.movieID, m.nameRussian, m.nameNative, m.yearOfRelease," +
-            " m.country, m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
+            "  m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
             " WHERE rl.genreid = :genreID";
 
     private static final String SELECT_MOVIES_BY_GENRE_ORDER_BY_RATING = "SELECT m.movieID, m.nameRussian, m.nameNative, m.yearOfRelease," +
-            " m.country, m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
+            "  m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
             " WHERE rl.genreid = :genreID ORDER BY m.rating DESC";
 
     private static final String SELECT_ALL_MOVIES_ORDER_BY_PRICE_DESC = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
-            " country, picturePath, rating, price FROM movies ORDER BY price DESC";
+            "  picturePath, rating, price FROM movies ORDER BY price DESC";
 
     private static final String SELECT_ALL_MOVIES_ORDER_BY_PRICE_ASC = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
-            " country, picturePath, rating, price FROM movies ORDER BY price";
+            "  picturePath, rating, price FROM movies ORDER BY price";
 
     private static final String SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_DESC = "SELECT m.movieID, m.nameRussian, m.nameNative, m.yearOfRelease," +
-            " m.country, m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
+            " m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
             " WHERE rl.genreid = :genreID ORDER BY m.price DESC";
 
     private static final String SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_ASC = "SELECT m.movieID, m.nameRussian, m.nameNative, m.yearOfRelease," +
-            " m.country, m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
+            "  m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
             " WHERE rl.genreid = :genreID ORDER BY m.price";
 
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;

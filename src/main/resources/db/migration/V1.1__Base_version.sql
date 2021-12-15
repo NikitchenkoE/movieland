@@ -6,13 +6,6 @@ CREATE TABLE users
     password            varchar
 );
 
-CREATE TABLE reviews
-(
-    reviewID            SERIAL NOT NULL PRIMARY KEY,
-    movieTitle          varchar,
-    userPersonalDetails varchar,
-    reviewText          varchar
-);
 
 CREATE TABLE movies
 (
@@ -20,7 +13,6 @@ CREATE TABLE movies
     nameRussian   varchar,
     nameNative    varchar,
     yearOfRelease integer,
-    country       varchar,
     description   varchar,
     picturePath   varchar,
     rating        double precision,
@@ -34,6 +26,22 @@ CREATE TABLE genres
     genre   varchar
 );
 
+CREATE TABLE reviews
+(
+    reviewID   SERIAL NOT NULL PRIMARY KEY,
+    reviewText varchar,
+    userID     int,
+    movieID    int,
+    CONSTRAINT fk_userId FOREIGN KEY (userID) REFERENCES users (userID),
+    CONSTRAINT fk_movieId FOREIGN KEY (movieID) REFERENCES movies (movieID)
+);
+
+CREATE TABLE "countries"
+(
+    countryID   SERIAL NOT NULL PRIMARY KEY,
+    countryName varchar
+);
+
 
 CREATE TABLE movieGenreRelation
 (
@@ -43,6 +51,16 @@ CREATE TABLE movieGenreRelation
     FOREIGN KEY (genreID) REFERENCES genres (genreID),
     UNIQUE (movieID, genreID)
 );
+
+CREATE TABLE movieCountryRelation
+(
+    movieID integer NOT NULL,
+    countryID integer NOT NULL,
+    FOREIGN KEY (movieID) REFERENCES movies (movieID),
+    FOREIGN KEY (countryID) REFERENCES countries (countryID),
+    UNIQUE (movieID, countryID)
+);
+
 
 
 

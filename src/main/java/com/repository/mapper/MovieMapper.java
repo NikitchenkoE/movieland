@@ -15,7 +15,6 @@ public class MovieMapper implements RowMapper<Movie> {
                 .nameRussian(resultSet.getString("nameRussian"))
                 .nameNative(resultSet.getString("nameNative"))
                 .yearOfRelease(resultSet.getInt("yearOfRelease"))
-                .country(resultSet.getString("country"))
                 .picturePath(resultSet.getString("picturePath"))
                 .rating(resultSet.getDouble("rating"))
                 .price(resultSet.getDouble("price"))

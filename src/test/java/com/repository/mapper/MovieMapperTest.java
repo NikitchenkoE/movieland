@@ -37,7 +37,6 @@ class MovieMapperTest {
         Mockito.when(resultSetMock.getString("nameRussian")).thenReturn("movieNameRussian");
         Mockito.when(resultSetMock.getString("nameNative")).thenReturn("movieNameNative");
         Mockito.when(resultSetMock.getInt("yearOfRelease")).thenReturn(2011);
-        Mockito.when(resultSetMock.getString("country")).thenReturn("Ukraine");
         Mockito.when(resultSetMock.getString("picturePath")).thenReturn("imagePath");
         Mockito.when(resultSetMock.getDouble("rating")).thenReturn(10.0);
         Mockito.when(resultSetMock.getDouble("price")).thenReturn(15.00);
@@ -47,7 +46,6 @@ class MovieMapperTest {
                 .nameRussian("movieNameRussian")
                 .nameNative("movieNameNative")
                 .yearOfRelease(2011)
-                .country("Ukraine")
                 .picturePath("imagePath")
                 .rating(10.0)
                 .price(15.00)
