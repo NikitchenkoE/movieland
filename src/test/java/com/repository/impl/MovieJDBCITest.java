@@ -1,6 +1,6 @@
 package com.repository.impl;
 
-import com.entity.Movie;
+import com.entity.*;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import org.flywaydb.core.Flyway;
@@ -13,7 +13,9 @@ import org.testcontainers.junit.jupiter.Container;
 import org.testcontainers.junit.jupiter.Testcontainers;
 import org.testcontainers.utility.DockerImageName;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -145,5 +147,51 @@ class MovieJDBCITest {
             Movie nextMovie = moviesByGenreSortedByPriceAsc.get(i + 1);
             assertTrue(thisMovie.getPrice() <= nextMovie.getPrice());
         }
+    }
+
+    @Test
+    void testGetMovieExtendedInfoById(){
+        Set<Review> reviewsSet = new HashSet<>();
+        Set<Genre> genresSet = new HashSet<>();
+        Set<Country> countriesSet = new HashSet<>();
+        countriesSet.add(new Country(1L, "США"));
+        genresSet.add(new Genre(1L, "драма"));
+        genresSet.add(new Genre(2L, "криминал"));
+        reviewsSet.add(Review.builder()
+                .id(1L)
+                .user(User.builder()
+                        .id(2L)
+                        .nickname("Дарлин Эдвардс")
+                        .build())
+                .text("Гениальное кино! Смотришь и думаешь «Так не бывает!», но позже понимаешь, что только так и должно быть. Начинаешь заново осмысливать значение фразы, которую постоянно используешь в своей жизни, «Надежда умирает последней». Ведь если ты не надеешься, то все в твоей жизни гаснет, не остается смысла. Фильм наполнен бесконечным числом правильных афоризмов. Я уверена, что буду пересматривать его сотни раз.")
+                .build());
+
+        reviewsSet.add(Review.builder()
+                .id(2L)
+                .user(User.builder()
+                        .id(3L)
+                        .nickname("Габриэль Джексон")
+                        .build())
+                .text("Кино это является, безусловно, «со знаком качества». Что же до первого места в рейтинге, то, думаю, здесь имело место быть выставление «десяточек» от большинства зрителей вкупе с раздутыми восторженными откликами кинокритиков. Фильм атмосферный. Он драматичный. И, конечно, заслуживает того, чтобы находиться довольно высоко в мировом кинематографе.")
+                .build());
+
+        MovieExtendedInformation movieExpected = MovieExtendedInformation.builder()
+                .id(1L)
+                .nameRussian("Побег из Шоушенка")
+                .nameNative("The Shawshank Redemption")
+                .yearOfRelease(1994)
+                .picturePath("https://images-na.ssl-images-amazon.com/images/M/MV5BODU4MjU4NjIwNl5BMl5BanBnXkFtZTgwMDU2MjEyMDE@._V1._SY209_CR0,0,140,209_.jpg")
+                .description("Успешный банкир Энди Дюфрейн обвинен в убийстве собственной жены и ее любовника. Оказавшись в тюрьме под названием Шоушенк, он сталкивается с жестокостью и беззаконием, царящими по обе стороны решетки. Каждый, кто попадает в эти стены, становится их рабом до конца жизни. Но Энди, вооруженный живым умом и доброй душой, отказывается мириться с приговором судьбы и начинает разрабатывать невероятно дерзкий план своего освобождения.")
+                .rating(8.9)
+                .price(123.45)
+                .countriesSet(countriesSet)
+                .genresSet(genresSet)
+                .reviewsSet(reviewsSet)
+                .build();
+
+        MovieExtendedInformation movieActual = movieRep.getMovieById(1L);
+
+
+        assertEquals(movieExpected, movieActual);
     }
 }

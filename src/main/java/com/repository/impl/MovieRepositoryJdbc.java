@@ -1,7 +1,9 @@
 package com.repository.impl;
 
 import com.entity.Movie;
+import com.entity.MovieExtendedInformation;
 import com.repository.MovieRepository;
+import com.repository.mapper.MovieExtendedInformationMapper;
 import com.repository.mapper.MovieMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -44,42 +46,59 @@ public class MovieRepositoryJdbc implements MovieRepository {
             "  m.picturePath, m.rating, m.price FROM movies m INNER JOIN moviegenrerelation rl on m.movieid = rl.movieid" +
             " WHERE rl.genreid = :genreID ORDER BY m.price";
 
+    private static final String SELECT_MOVIE_EXTENDED_INFORMATION_BY_ID = "SELECT m.movieid, m.namerussian, m.namenative, m.yearofrelease, m.description, m.rating, m.price, m.picturepath,\n" +
+            "       c.countryid, c.countryname,\n" +
+            "       g.genreid, g.genre,\n" +
+            "       r.reviewid, r.reviewtext,\n" +
+            "       u.userid, u.userpersonaldetails\n" +
+            "        FROM movies m\n" +
+            "    INNER JOIN moviecountryrelation mcr on m.movieid = mcr.movieid INNER JOIN countries c on c.countryid = mcr.countryid\n" +
+            "    INNER JOIN moviegenrerelation mgr on m.movieid = mgr.movieid INNER JOIN genres g on g.genreid = mgr.genreid\n" +
+            "    LEFT JOIN reviews r on m.movieid = r.movieid\n" +
+            "    LEFT JOIN users u on u.userid = r.userid\n" +
+            "WHERE m.movieid = :movieId";
+
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private final MovieMapper movieMapper = new MovieMapper();
 
 
     public List<Movie> getAllMovies() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES, new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES, movieMapper);
     }
 
     public List<Movie> getRandomMovies(int count) {
-        return namedParameterJdbcTemplate.query(SELECT_RANDOM_MOVIES, Collections.singletonMap("count", count), new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_RANDOM_MOVIES, Collections.singletonMap("count", count), movieMapper);
     }
 
     public List<Movie> getMoviesByGenreId(Long id) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE, Collections.singletonMap("genreID", id), new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE, Collections.singletonMap("genreID", id), movieMapper);
     }
 
     public List<Movie> getAllMoviesSortedByRating() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_RATING, new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_RATING, movieMapper);
     }
 
     public List<Movie> getAllMoviesSortedByPriceDESC() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_DESC, new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_DESC, movieMapper);
     }
 
     public List<Movie> getAllMoviesSortedByPriceASC() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_ASC, new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_ASC, movieMapper);
     }
 
     public List<Movie> getMoviesByGenreIdSortedByRating(Long id) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_RATING, Collections.singletonMap("genreID", id), new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_RATING, Collections.singletonMap("genreID", id), movieMapper);
     }
 
     public List<Movie> getMoviesByGenreIdSortedByPriceDESC(Long id) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_DESC, Collections.singletonMap("genreID", id), new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_DESC, Collections.singletonMap("genreID", id), movieMapper);
     }
 
     public List<Movie> getMoviesByGenreIdSortedByPriceASC(Long id) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_ASC, Collections.singletonMap("genreID", id), new MovieMapper());
+        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_ASC, Collections.singletonMap("genreID", id), movieMapper);
+    }
+
+    public MovieExtendedInformation getMovieById(Long id){
+        return namedParameterJdbcTemplate.queryForObject(SELECT_MOVIE_EXTENDED_INFORMATION_BY_ID, Collections.singletonMap("movieId", id), new MovieExtendedInformationMapper());
     }
 }
