@@ -13,5 +13,5 @@ public interface MovieService {
 
     List<MovieDto> getMoviesByGenreId(MovieRequestData movieRequestData);
 
-    MovieExtendedInformationDto getMovieById(Long id);
+    MovieExtendedInformationDto getMovieById(MovieRequestData movieRequestData);
 }

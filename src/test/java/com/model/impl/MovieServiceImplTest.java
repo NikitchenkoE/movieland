@@ -170,7 +170,7 @@ class MovieServiceImplTest {
 
     @Test
     void testGetMovieByIdShouldReturnMovieExtendedInformationDto(){
-        MovieExtendedInformationDto movieActual = movieService.getMovieById(100L);
+        MovieExtendedInformationDto movieActual = movieService.getMovieById(MovieRequestData.builder().movieId(100L).build());
         assertEquals(movieExtendedInformationExpected, movieActual);
     }
 

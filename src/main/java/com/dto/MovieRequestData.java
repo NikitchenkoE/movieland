@@ -14,4 +14,5 @@ public class MovieRequestData {
     private String priceRequestInfo;
     private Long genreId;
     private int countOfRandomMovies;
+    private Long movieId;
 }

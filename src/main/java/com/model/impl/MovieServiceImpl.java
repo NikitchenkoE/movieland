@@ -55,8 +55,8 @@ public class MovieServiceImpl implements MovieService {
         return result;
     }
 
-    public MovieExtendedInformationDto getMovieById(Long id) {
-        return movieExtendedInformationMapper.mapToMovieExtendedInformationDto(movieDao.getMovieById(id));
+    public MovieExtendedInformationDto getMovieById(MovieRequestData movieRequestData) {
+        return movieExtendedInformationMapper.mapToMovieExtendedInformationDto(movieDao.getMovieById(movieRequestData.getMovieId()));
     }
 
     private List<MovieDto> getAllMoviesOrderByRating(String ratingRequestInfo) {
