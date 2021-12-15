@@ -11,7 +11,7 @@ import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
-public class GenreRepJdbc implements GenreRepository {
+public class GenreRepositoryJdbc implements GenreRepository {
     private static final String SELECT_ALL_GENRES = "SELECT genreID, genre FROM genres";
     private final NamedParameterJdbcTemplate namedParameterJdbcTemplate;
 

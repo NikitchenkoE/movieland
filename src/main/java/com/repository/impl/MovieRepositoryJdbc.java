@@ -12,7 +12,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class MovieRepJdbc implements MovieRepository {
+public class MovieRepositoryJdbc implements MovieRepository {
     private static final String SELECT_ALL_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
             " country, picturePath, rating, price FROM movies";
 

@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @Testcontainers
 class GenreRepJdbcTest {
 
-    private GenreRepJdbc genreRepJdbc;
+    private GenreRepositoryJdbc genreRepJdbc;
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
@@ -42,7 +42,7 @@ class GenreRepJdbcTest {
                 .load();
         flyway.migrate();
 
-        genreRepJdbc = new GenreRepJdbc(new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource)));
+        genreRepJdbc = new GenreRepositoryJdbc(new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource)));
     }
 
     @Test

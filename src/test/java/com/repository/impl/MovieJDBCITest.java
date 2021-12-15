@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Testcontainers
 class MovieJDBCITest {
 
-    private MovieRepJdbc movieRep;
+    private MovieRepositoryJdbc movieRep;
 
     @Container
     public static PostgreSQLContainer<?> container = new PostgreSQLContainer<>(DockerImageName.parse("postgres:13.3"))
@@ -42,7 +42,7 @@ class MovieJDBCITest {
                 .load();
         flyway.migrate();
 
-        movieRep = new MovieRepJdbc(new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource)));
+        movieRep = new MovieRepositoryJdbc(new NamedParameterJdbcTemplate(new JdbcTemplate(dataSource)));
     }
 
     @Test
