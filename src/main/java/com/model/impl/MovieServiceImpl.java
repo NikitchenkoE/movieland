@@ -55,7 +55,7 @@ public class MovieServiceImpl implements MovieService {
         return result;
     }
 
-    public MovieExtendedInformationDto getMovieById(Long id){
+    public MovieExtendedInformationDto getMovieById(Long id) {
         return movieExtendedInformationMapper.mapToMovieExtendedInformationDto(movieDao.getMovieById(id));
     }
 

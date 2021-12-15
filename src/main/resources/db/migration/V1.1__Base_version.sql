@@ -54,7 +54,7 @@ CREATE TABLE movieGenreRelation
 
 CREATE TABLE movieCountryRelation
 (
-    movieID integer NOT NULL,
+    movieID   integer NOT NULL,
     countryID integer NOT NULL,
     FOREIGN KEY (movieID) REFERENCES movies (movieID),
     FOREIGN KEY (countryID) REFERENCES countries (countryID),
