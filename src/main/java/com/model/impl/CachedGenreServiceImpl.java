@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +31,7 @@ public class CachedGenreServiceImpl implements GenreService {
     }
 
     @PostConstruct
-    public void loadCache(){
+    public void loadCache() {
         genreCache = genreServiceImpl.getAllGenreDto();
     }
 }

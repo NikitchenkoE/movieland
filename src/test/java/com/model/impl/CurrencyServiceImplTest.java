@@ -1,6 +1,5 @@
 package com.model.impl;
 
-import com.config.RootConfig;
 import com.config.SpringTestContext;
 import com.config.WebConfig;
 import com.entity.Currency;
@@ -12,7 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.web.WebAppConfiguration;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @ExtendWith(SpringExtension.class)
 @WebAppConfiguration
@@ -24,7 +23,7 @@ class CurrencyServiceImplTest {
     @Test
     void convertFromUah() {
         double actual = currencyService.convertFromUah(81, Currency.USD);
-        assertDoesNotThrow(()-> new RuntimeException("Problem"));
+        assertDoesNotThrow(() -> new RuntimeException("Problem"));
     }
 
 }

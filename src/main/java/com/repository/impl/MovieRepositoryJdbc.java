@@ -85,7 +85,7 @@ public class MovieRepositoryJdbc implements MovieRepository {
 
     public List<Movie> getMoviesByGenreIdSortedByRating(Long id, SortMethod sortMethod) {
         if (sortMethod.equals(SortMethod.DESC)) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_RATING, Collections.singletonMap("genreID", id), movieMapper);
+            return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_RATING, Collections.singletonMap("genreID", id), movieMapper);
         } else throw new RuntimeException("Bad request");
     }
 

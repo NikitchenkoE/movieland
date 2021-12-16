@@ -7,6 +7,7 @@ public enum SortMethod {
     SortMethod(String method) {
         this.method = method;
     }
+
     private final String method;
 
     public String getMethod() {
@@ -15,8 +16,8 @@ public enum SortMethod {
 
     static public SortMethod valueOfIgnoreCase(String value) {
         for (SortMethod method : SortMethod.values()) {
-            if ( method.name().equalsIgnoreCase(value) ) return method;
+            if (method.name().equalsIgnoreCase(value)) return method;
         }
-       throw new RuntimeException("Unsupported method " + value);
+        throw new RuntimeException("Unsupported method " + value);
     }
 }

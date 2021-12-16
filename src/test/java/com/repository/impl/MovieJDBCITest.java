@@ -150,7 +150,7 @@ class MovieJDBCITest {
     }
 
     @Test
-    void testGetMovieExtendedInfoById(){
+    void testGetMovieExtendedInfoById() {
         Set<Review> reviewsSet = new HashSet<>();
         Set<Genre> genresSet = new HashSet<>();
         Set<Country> countriesSet = new HashSet<>();

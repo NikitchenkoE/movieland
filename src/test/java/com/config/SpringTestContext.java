@@ -1,22 +1,16 @@
 package com.config;
 
-import com.entity.Money;
-import com.entity.Movie;
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;
 import net.ttddyy.dsproxy.listener.ChainListener;
 import net.ttddyy.dsproxy.listener.DataSourceQueryCountListener;
 import net.ttddyy.dsproxy.listener.logging.SLF4JQueryLoggingListener;
 import net.ttddyy.dsproxy.support.ProxyDataSourceBuilder;
-import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.web.client.RestTemplate;
@@ -71,7 +65,7 @@ public class SpringTestContext implements WebMvcConfigurer {
     }
 
     @Bean
-    RestTemplate restTemplate(){
+    RestTemplate restTemplate() {
         return new RestTemplate();
     }
 }

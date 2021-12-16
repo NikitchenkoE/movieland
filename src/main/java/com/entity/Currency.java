@@ -1,7 +1,5 @@
 package com.entity;
 
-import lombok.Data;
-
 import java.util.Arrays;
 
 public enum Currency {
@@ -13,7 +11,7 @@ public enum Currency {
         this.currencyName = currencyName;
     }
 
-    public static Currency getCurrencyIgnoreCase(String currencyValue){
+    public static Currency getCurrencyIgnoreCase(String currencyValue) {
         return Arrays.stream(Currency.values())
                 .filter(currency -> currency.currencyName.equalsIgnoreCase(currencyValue))
                 .findFirst()
