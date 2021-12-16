@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -18,4 +20,7 @@ public class Movie {
     private String description;
     private double rating;
     private double price;
+    private Set<Country> countries;
+    private Set<Genre> genres;
+    private Set<Review> reviews;
 }

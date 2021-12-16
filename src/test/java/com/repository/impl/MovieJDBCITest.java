@@ -175,7 +175,7 @@ class MovieJDBCITest {
                 .text("Кино это является, безусловно, «со знаком качества». Что же до первого места в рейтинге, то, думаю, здесь имело место быть выставление «десяточек» от большинства зрителей вкупе с раздутыми восторженными откликами кинокритиков. Фильм атмосферный. Он драматичный. И, конечно, заслуживает того, чтобы находиться довольно высоко в мировом кинематографе.")
                 .build());
 
-        MovieExtendedInformation movieExpected = MovieExtendedInformation.builder()
+        Movie movieExpected = Movie.builder()
                 .id(1L)
                 .nameRussian("Побег из Шоушенка")
                 .nameNative("The Shawshank Redemption")
@@ -189,7 +189,7 @@ class MovieJDBCITest {
                 .reviews(reviewsSet)
                 .build();
 
-        MovieExtendedInformation movieActual = movieRep.getMovieById(1L);
+        Movie movieActual = movieRep.getMovieById(1L);
 
 
         assertEquals(movieExpected, movieActual);

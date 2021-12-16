@@ -8,14 +8,14 @@ import java.sql.SQLException;
 import java.util.HashSet;
 import java.util.Set;
 
-public class MovieExtendedInformationMapper implements RowMapper<MovieExtendedInformation> {
+public class MovieExtendedInformationMapper implements RowMapper<Movie> {
     private final Set<Country> countriesSet = new HashSet<>();
     private final Set<Genre> genresSet = new HashSet<>();
     private final Set<Review> reviewsSet = new HashSet<>();
-    private MovieExtendedInformation movieExtendedInformation = new MovieExtendedInformation();
+    private Movie movieExtendedInformation = new Movie();
 
     @Override
-    public MovieExtendedInformation mapRow(ResultSet resultSet, int rowNum) throws SQLException {
+    public Movie mapRow(ResultSet resultSet, int rowNum) throws SQLException {
         while (resultSet.next()) {
             countriesSet.add(Country.builder()
                     .id(resultSet.getLong("countryid"))
@@ -36,7 +36,7 @@ public class MovieExtendedInformationMapper implements RowMapper<MovieExtendedIn
                             .build())
                     .build());
 
-            movieExtendedInformation = MovieExtendedInformation.builder()
+            movieExtendedInformation = Movie.builder()
                     .id(resultSet.getLong("movieid"))
                     .nameRussian(resultSet.getString("namerussian"))
                     .nameNative(resultSet.getString("namenative"))

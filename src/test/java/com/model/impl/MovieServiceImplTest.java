@@ -4,8 +4,6 @@ import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
 import com.entity.Movie;
-import com.entity.MovieExtendedInformation;
-import com.model.mapper.MovieExtendedInformationMapperImpl;
 import com.model.mapper.MovieMapperImpl;
 import com.repository.MovieRepository;
 import org.junit.jupiter.api.BeforeAll;
@@ -20,7 +18,7 @@ import static org.mockito.Mockito.mock;
 
 class MovieServiceImplTest {
     private static final MovieRepository movieDao = mock(MovieRepository.class);
-    private static final MovieServiceImpl movieService = new MovieServiceImpl(movieDao, new MovieMapperImpl(), new MovieExtendedInformationMapperImpl());
+    private static final MovieServiceImpl movieService = new MovieServiceImpl(movieDao, new MovieMapperImpl());
     private static final List<Movie> movieActual = Arrays.asList(Movie.builder().id(1L).build(), Movie.builder().id(2L).build());
     private static final List<Movie> movieActualSortedByRating = Arrays.asList(Movie.builder().id(1L).build(), Movie.builder().id(2L).build());
     private static final List<Movie> movieActualSortedByPriceASC = Arrays.asList(Movie.builder().id(3L).build(), Movie.builder().id(4L).build());
@@ -29,7 +27,7 @@ class MovieServiceImplTest {
     private static final List<MovieDto> movieExpectedSortedByRating = Arrays.asList(MovieDto.builder().id(1L).build(), MovieDto.builder().id(2L).build());
     private static final List<MovieDto> movieExpectedSortedByPriceASC = Arrays.asList(MovieDto.builder().id(3L).build(), MovieDto.builder().id(4L).build());
     private static final List<MovieDto> movieExpectedSortedByPriceDESC = Arrays.asList(MovieDto.builder().id(5L).build(), MovieDto.builder().id(6L).build());
-    private static final MovieExtendedInformation movieExtendedInformationActual = MovieExtendedInformation.builder().id(100L).description("description").build();
+    private static final Movie movieExtendedInformationActual = Movie.builder().id(100L).description("description").build();
     private static final MovieExtendedInformationDto movieExtendedInformationExpected = MovieExtendedInformationDto.builder().id(100L).description("description").build();
 
     @BeforeAll

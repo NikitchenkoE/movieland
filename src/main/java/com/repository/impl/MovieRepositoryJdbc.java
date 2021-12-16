@@ -1,7 +1,6 @@
 package com.repository.impl;
 
 import com.entity.Movie;
-import com.entity.MovieExtendedInformation;
 import com.repository.MovieRepository;
 import com.repository.mapper.MovieExtendedInformationMapper;
 import com.repository.mapper.MovieMapper;
@@ -100,7 +99,7 @@ public class MovieRepositoryJdbc implements MovieRepository {
         return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_ASC, Collections.singletonMap("genreID", id), movieMapper);
     }
 
-    public MovieExtendedInformation getMovieById(Long id) {
+    public Movie getMovieById(Long id) {
         return namedParameterJdbcTemplate.queryForObject(SELECT_MOVIE_EXTENDED_INFORMATION_BY_ID, Collections.singletonMap("movieId", id), new MovieExtendedInformationMapper());
     }
 }
