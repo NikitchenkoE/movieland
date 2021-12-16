@@ -17,6 +17,6 @@ public enum SortMethod {
         for (SortMethod method : SortMethod.values()) {
             if ( method.name().equalsIgnoreCase(value) ) return method;
         }
-        return null;
+       throw new RuntimeException("Unsupported method " + value);
     }
 }
