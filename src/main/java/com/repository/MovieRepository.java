@@ -1,6 +1,7 @@
 package com.repository;
 
 import com.entity.Movie;
+import com.entity.SortMethod;
 
 import java.util.List;
 
@@ -11,17 +12,13 @@ public interface MovieRepository {
 
     List<Movie> getMoviesByGenreId(Long id);
 
-    List<Movie> getAllMoviesSortedByRating();
+    List<Movie> getAllMoviesSortedByRating(SortMethod sortMethod);
 
-    List<Movie> getMoviesByGenreIdSortedByRating(Long id);
+    List<Movie> getMoviesByGenreIdSortedByRating(Long id, SortMethod sortMethod);
 
-    List<Movie> getAllMoviesSortedByPriceDESC();
+    List<Movie> getAllMoviesSortedByPrice(SortMethod sortMethod);
 
-    List<Movie> getAllMoviesSortedByPriceASC();
-
-    List<Movie> getMoviesByGenreIdSortedByPriceDESC(Long id);
-
-    List<Movie> getMoviesByGenreIdSortedByPriceASC(Long id);
+    List<Movie> getMoviesByGenreIdSortedByPrice(Long id, SortMethod sortMethod);
 
     Movie getMovieById(Long id);
 

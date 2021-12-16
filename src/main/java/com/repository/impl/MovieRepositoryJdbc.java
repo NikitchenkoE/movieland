@@ -1,6 +1,7 @@
 package com.repository.impl;
 
 import com.entity.Movie;
+import com.entity.SortMethod;
 import com.repository.MovieRepository;
 import com.repository.mapper.MovieExtendedInformationMapper;
 import com.repository.mapper.MovieMapper;
@@ -75,28 +76,31 @@ public class MovieRepositoryJdbc implements MovieRepository {
         return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE, Collections.singletonMap("genreID", id), movieMapper);
     }
 
-    public List<Movie> getAllMoviesSortedByRating() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_RATING, movieMapper);
+    public List<Movie> getAllMoviesSortedByRating(SortMethod sortMethod) {
+        if (sortMethod.equals(SortMethod.DESC)) {
+            return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_RATING, movieMapper);
+        } else throw new RuntimeException("Bad request");
     }
 
-    public List<Movie> getAllMoviesSortedByPriceDESC() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_DESC, movieMapper);
-    }
 
-    public List<Movie> getAllMoviesSortedByPriceASC() {
-        return namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_ASC, movieMapper);
-    }
-
-    public List<Movie> getMoviesByGenreIdSortedByRating(Long id) {
+    public List<Movie> getMoviesByGenreIdSortedByRating(Long id, SortMethod sortMethod) {
+        if (sortMethod.equals(SortMethod.DESC)) {
         return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_RATING, Collections.singletonMap("genreID", id), movieMapper);
+        } else throw new RuntimeException("Bad request");
     }
 
-    public List<Movie> getMoviesByGenreIdSortedByPriceDESC(Long id) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_DESC, Collections.singletonMap("genreID", id), movieMapper);
+    public List<Movie> getAllMoviesSortedByPrice(SortMethod sortMethod) {
+        return sortMethod.equals(SortMethod.ASC) ?
+                namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_ASC, movieMapper) :
+                namedParameterJdbcTemplate.query(SELECT_ALL_MOVIES_ORDER_BY_PRICE_DESC, movieMapper);
+
     }
 
-    public List<Movie> getMoviesByGenreIdSortedByPriceASC(Long id) {
-        return namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_ASC, Collections.singletonMap("genreID", id), movieMapper);
+    public List<Movie> getMoviesByGenreIdSortedByPrice(Long id, SortMethod sortMethod) {
+        return sortMethod.equals(SortMethod.ASC) ?
+                namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_ASC, Collections.singletonMap("genreID", id), movieMapper) :
+                namedParameterJdbcTemplate.query(SELECT_MOVIES_BY_GENRE_ORDER_BY_PRICE_DESC, Collections.singletonMap("genreID", id), movieMapper);
+
     }
 
     public Movie getMovieById(Long id) {

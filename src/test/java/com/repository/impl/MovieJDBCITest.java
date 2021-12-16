@@ -91,7 +91,7 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesOrderByRating() {
-        List<Movie> allMoviesSortedByRating = movieRep.getAllMoviesSortedByRating();
+        List<Movie> allMoviesSortedByRating = movieRep.getAllMoviesSortedByRating(SortMethod.DESC);
         for (int i = 0; i < allMoviesSortedByRating.size() - 1; i++) {
             Movie thisMovie = allMoviesSortedByRating.get(i);
             Movie nextMovie = allMoviesSortedByRating.get(i + 1);
@@ -101,7 +101,7 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesByGenreOrderByRating() {
-        List<Movie> moviesByGenreSortedByRating = movieRep.getMoviesByGenreIdSortedByRating(1L);
+        List<Movie> moviesByGenreSortedByRating = movieRep.getMoviesByGenreIdSortedByRating(1L, SortMethod.DESC);
         for (int i = 0; i < moviesByGenreSortedByRating.size() - 1; i++) {
             Movie thisMovie = moviesByGenreSortedByRating.get(i);
             Movie nextMovie = moviesByGenreSortedByRating.get(i + 1);
@@ -111,7 +111,7 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesOrderByPriceDESC() {
-        List<Movie> allMoviesSortedByPriceDesc = movieRep.getAllMoviesSortedByPriceDESC();
+        List<Movie> allMoviesSortedByPriceDesc = movieRep.getAllMoviesSortedByPrice(SortMethod.DESC);
         for (int i = 0; i < allMoviesSortedByPriceDesc.size() - 1; i++) {
             Movie thisMovie = allMoviesSortedByPriceDesc.get(i);
             Movie nextMovie = allMoviesSortedByPriceDesc.get(i + 1);
@@ -121,7 +121,7 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesOrderByPriceASC() {
-        List<Movie> allMoviesSortedByPriceAsc = movieRep.getAllMoviesSortedByPriceASC();
+        List<Movie> allMoviesSortedByPriceAsc = movieRep.getAllMoviesSortedByPrice(SortMethod.ASC);
         for (int i = 0; i < allMoviesSortedByPriceAsc.size() - 1; i++) {
             Movie thisMovie = allMoviesSortedByPriceAsc.get(i);
             Movie nextMovie = allMoviesSortedByPriceAsc.get(i + 1);
@@ -131,7 +131,7 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesByGenreOrderByPriceDESC() {
-        List<Movie> moviesByGenreSortedByPriceDesc = movieRep.getMoviesByGenreIdSortedByPriceDESC(1L);
+        List<Movie> moviesByGenreSortedByPriceDesc = movieRep.getMoviesByGenreIdSortedByPrice(1L, SortMethod.DESC);
         for (int i = 0; i < moviesByGenreSortedByPriceDesc.size() - 1; i++) {
             Movie thisMovie = moviesByGenreSortedByPriceDesc.get(i);
             Movie nextMovie = moviesByGenreSortedByPriceDesc.get(i + 1);
@@ -141,7 +141,7 @@ class MovieJDBCITest {
 
     @Test
     void testGetAllMoviesByGenreOrderByPriceASC() {
-        List<Movie> moviesByGenreSortedByPriceAsc = movieRep.getMoviesByGenreIdSortedByPriceASC(1L);
+        List<Movie> moviesByGenreSortedByPriceAsc = movieRep.getMoviesByGenreIdSortedByPrice(1L, SortMethod.ASC);
         for (int i = 0; i < moviesByGenreSortedByPriceAsc.size() - 1; i++) {
             Movie thisMovie = moviesByGenreSortedByPriceAsc.get(i);
             Movie nextMovie = moviesByGenreSortedByPriceAsc.get(i + 1);

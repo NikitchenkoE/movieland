@@ -1,59 +1,42 @@
 package com.model.impl;
 
+import com.config.SpringTestContext;
+import com.config.WebConfig;
 import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
-import com.entity.Movie;
-import com.model.mapper.MovieMapperImpl;
-import com.repository.MovieRepository;
-import org.junit.jupiter.api.BeforeAll;
+import com.model.MovieService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.test.context.web.WebAppConfiguration;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@ExtendWith(SpringExtension.class)
+@WebAppConfiguration
+@ContextConfiguration(classes = {WebConfig.class, SpringTestContext.class})
 class MovieServiceImplTest {
-    private static final MovieRepository movieDao = mock(MovieRepository.class);
-    private static final MovieServiceImpl movieService = new MovieServiceImpl(movieDao, new MovieMapperImpl());
-    private static final List<Movie> movieActual = Arrays.asList(Movie.builder().id(1L).build(), Movie.builder().id(2L).build());
-    private static final List<Movie> movieActualSortedByRating = Arrays.asList(Movie.builder().id(1L).build(), Movie.builder().id(2L).build());
-    private static final List<Movie> movieActualSortedByPriceASC = Arrays.asList(Movie.builder().id(3L).build(), Movie.builder().id(4L).build());
-    private static final List<Movie> movieActualSortedByPriceDESC = Arrays.asList(Movie.builder().id(5L).build(), Movie.builder().id(6L).build());
-    private static final List<MovieDto> movieExpected = Arrays.asList(MovieDto.builder().id(1L).build(), MovieDto.builder().id(2L).build());
-    private static final List<MovieDto> movieExpectedSortedByRating = Arrays.asList(MovieDto.builder().id(1L).build(), MovieDto.builder().id(2L).build());
-    private static final List<MovieDto> movieExpectedSortedByPriceASC = Arrays.asList(MovieDto.builder().id(3L).build(), MovieDto.builder().id(4L).build());
-    private static final List<MovieDto> movieExpectedSortedByPriceDESC = Arrays.asList(MovieDto.builder().id(5L).build(), MovieDto.builder().id(6L).build());
-    private static final Movie movieExtendedInformationActual = Movie.builder().id(100L).description("description").build();
-    private static final MovieExtendedInformationDto movieExtendedInformationExpected = MovieExtendedInformationDto.builder().id(100L).description("description").build();
-
-    @BeforeAll
-    static void init() {
-        Mockito.when(movieDao.getAllMovies()).thenReturn(movieActual);
-        Mockito.when(movieDao.getMoviesByGenreId(1L)).thenReturn(movieActual);
-        Mockito.when(movieDao.getRandomMovies(2)).thenReturn(movieActual);
-        Mockito.when(movieDao.getAllMoviesSortedByRating()).thenReturn(movieActualSortedByRating);
-        Mockito.when(movieDao.getAllMoviesSortedByPriceASC()).thenReturn(movieActualSortedByPriceASC);
-        Mockito.when(movieDao.getAllMoviesSortedByPriceDESC()).thenReturn(movieActualSortedByPriceDESC);
-        Mockito.when(movieDao.getMoviesByGenreIdSortedByRating(1L)).thenReturn(movieActualSortedByRating);
-        Mockito.when(movieDao.getMoviesByGenreIdSortedByPriceASC(1L)).thenReturn(movieActualSortedByPriceASC);
-        Mockito.when(movieDao.getMoviesByGenreIdSortedByPriceDESC(1L)).thenReturn(movieActualSortedByPriceDESC);
-        Mockito.when(movieDao.getMovieById(100L)).thenReturn(movieExtendedInformationActual);
-    }
+    @Autowired
+    private MovieService movieService;
 
     @Test
     void getAllMovies() {
         List<MovieDto> allMovies = movieService.getAllMovies(new MovieRequestData());
-        assertEquals(movieExpected, allMovies);
+        assertEquals(25, allMovies.size());
+        assertEquals(allMovies.get(1).getClass(), MovieDto.class);
     }
 
     @Test
     void getRandomMovies() {
         List<MovieDto> allMovies = movieService.getRandomMovies(MovieRequestData.builder().countOfRandomMovies(2).build());
-        assertEquals(movieExpected, allMovies);
+        assertEquals(2, allMovies.size());
+        assertEquals(allMovies.get(1).getClass(), MovieDto.class);
     }
 
     @Test
@@ -61,7 +44,7 @@ class MovieServiceImplTest {
         List<MovieDto> allMovies = movieService.getMoviesByGenreId(MovieRequestData.builder()
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpected, allMovies);
+        assertEquals(16, allMovies.size());
     }
 
     @Test
@@ -69,7 +52,9 @@ class MovieServiceImplTest {
         List<MovieDto> moviesSortedByRating = movieService.getAllMovies(MovieRequestData.builder()
                 .ratingRequestInfo("desc")
                 .build());
-        assertEquals(movieExpectedSortedByRating, moviesSortedByRating);
+        for (int i = 0; i < moviesSortedByRating.size() - 1; i++) {
+            assertTrue(moviesSortedByRating.get(i).getRating() >= moviesSortedByRating.get(i + 1).getRating());
+        }
     }
 
     @Test
@@ -77,7 +62,9 @@ class MovieServiceImplTest {
         List<MovieDto> moviesSortedByRating = movieService.getAllMovies(MovieRequestData.builder()
                 .ratingRequestInfo("DESC")
                 .build());
-        assertEquals(movieExpectedSortedByRating, moviesSortedByRating);
+        for (int i = 0; i < moviesSortedByRating.size() - 1; i++) {
+            assertTrue(moviesSortedByRating.get(i).getRating() >= moviesSortedByRating.get(i + 1).getRating());
+        }
     }
 
     @Test
@@ -85,7 +72,9 @@ class MovieServiceImplTest {
         List<MovieDto> moviesSortedByPrice = movieService.getAllMovies(MovieRequestData.builder()
                 .priceRequestInfo("asc")
                 .build());
-        assertEquals(movieExpectedSortedByPriceASC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() <= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -93,7 +82,9 @@ class MovieServiceImplTest {
         List<MovieDto> moviesSortedByPrice = movieService.getAllMovies(MovieRequestData.builder()
                 .priceRequestInfo("ASC")
                 .build());
-        assertEquals(movieExpectedSortedByPriceASC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() <= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -101,7 +92,9 @@ class MovieServiceImplTest {
         List<MovieDto> moviesSortedByPrice = movieService.getAllMovies(MovieRequestData.builder()
                 .priceRequestInfo("desc")
                 .build());
-        assertEquals(movieExpectedSortedByPriceDESC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() >= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -109,7 +102,9 @@ class MovieServiceImplTest {
         List<MovieDto> moviesSortedByPrice = movieService.getAllMovies(MovieRequestData.builder()
                 .priceRequestInfo("DESC")
                 .build());
-        assertEquals(movieExpectedSortedByPriceDESC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() >= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -118,7 +113,9 @@ class MovieServiceImplTest {
                 .ratingRequestInfo("desc")
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpectedSortedByRating, moviesSortedByRating);
+        for (int i = 0; i < moviesSortedByRating.size() - 1; i++) {
+            assertTrue(moviesSortedByRating.get(i).getRating() >= moviesSortedByRating.get(i + 1).getRating());
+        }
     }
 
     @Test
@@ -127,7 +124,9 @@ class MovieServiceImplTest {
                 .ratingRequestInfo("DESC")
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpectedSortedByRating, moviesSortedByRating);
+        for (int i = 0; i < moviesSortedByRating.size() - 1; i++) {
+            assertTrue(moviesSortedByRating.get(i).getRating() >= moviesSortedByRating.get(i + 1).getRating());
+        }
     }
 
     @Test
@@ -136,7 +135,9 @@ class MovieServiceImplTest {
                 .priceRequestInfo("asc")
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpectedSortedByPriceASC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() <= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -145,7 +146,9 @@ class MovieServiceImplTest {
                 .priceRequestInfo("ASC")
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpectedSortedByPriceASC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() <= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -154,7 +157,9 @@ class MovieServiceImplTest {
                 .priceRequestInfo("desc")
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpectedSortedByPriceDESC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() >= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
@@ -163,13 +168,15 @@ class MovieServiceImplTest {
                 .priceRequestInfo("DESC")
                 .genreId(1L)
                 .build());
-        assertEquals(movieExpectedSortedByPriceDESC, moviesSortedByPrice);
+        for (int i = 0; i < moviesSortedByPrice.size() - 1; i++) {
+            assertTrue(moviesSortedByPrice.get(i).getPrice() >= moviesSortedByPrice.get(i + 1).getPrice());
+        }
     }
 
     @Test
-    void testGetMovieByIdShouldReturnMovieExtendedInformationDto(){
-        MovieExtendedInformationDto movieActual = movieService.getMovieById(MovieRequestData.builder().movieId(100L).build());
-        assertEquals(movieExtendedInformationExpected, movieActual);
+    void testGetMovieByIdShouldReturnMovieExtendedInformationDto() {
+        MovieExtendedInformationDto movieActual = movieService.getMovieById(MovieRequestData.builder().movieId(1L).build());
+        assertEquals(1L, movieActual.getId());
     }
 
 }

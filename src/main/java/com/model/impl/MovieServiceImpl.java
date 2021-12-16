@@ -3,6 +3,8 @@ package com.model.impl;
 import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
+import com.entity.Movie;
+import com.entity.SortMethod;
 import com.model.MovieService;
 import com.model.mapper.MovieMapper;
 import com.repository.MovieRepository;
@@ -30,9 +32,11 @@ public class MovieServiceImpl implements MovieService {
         log.info("Get all movies");
         List<MovieDto> result;
         if (movieRequestData.getRatingRequestInfo() != null) {
-            result = getAllMoviesOrderByRating(movieRequestData.getRatingRequestInfo());
+            String ratingRequestInfo = movieRequestData.getRatingRequestInfo();
+            result = movieMapper.mapListMovieToMovieDto(movieDao.getAllMoviesSortedByRating(SortMethod.valueOfIgnoreCase(ratingRequestInfo)));
         } else if (movieRequestData.getPriceRequestInfo() != null) {
-            result = getAllMoviesOrderByPrice(movieRequestData.getPriceRequestInfo());
+            String priceRequestInfo = movieRequestData.getPriceRequestInfo();
+            result = movieMapper.mapListMovieToMovieDto(movieDao.getAllMoviesSortedByPrice(SortMethod.valueOfIgnoreCase(priceRequestInfo)));
         } else {
             result = movieMapper.mapListMovieToMovieDto(movieDao.getAllMovies());
         }
@@ -42,11 +46,16 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public List<MovieDto> getMoviesByGenreId(MovieRequestData movieRequestData) {
         log.info("Ger movies with genre id {}", movieRequestData.getGenreId());
+        Long genreId = movieRequestData.getGenreId();
         List<MovieDto> result;
         if (movieRequestData.getRatingRequestInfo() != null) {
-            result = getMoviesByGenreIdOrderByRating(movieRequestData.getGenreId(), movieRequestData.getRatingRequestInfo());
+            String ratingRequestInfo = movieRequestData.getRatingRequestInfo();
+            List<Movie> moviesByGenreIdSortedByRating = movieDao.getMoviesByGenreIdSortedByRating(genreId, SortMethod.valueOfIgnoreCase(ratingRequestInfo));
+            result = movieMapper.mapListMovieToMovieDto(moviesByGenreIdSortedByRating);
         } else if (movieRequestData.getPriceRequestInfo() != null) {
-            result = getMoviesByGenreIdOrderByPrice(movieRequestData.getGenreId(), movieRequestData.getPriceRequestInfo());
+            String priceRequestInfo = movieRequestData.getPriceRequestInfo();
+            List<Movie> moviesByGenreIdSortedByPrice = movieDao.getMoviesByGenreIdSortedByPrice(genreId, SortMethod.valueOfIgnoreCase(priceRequestInfo));
+            result = movieMapper.mapListMovieToMovieDto(moviesByGenreIdSortedByPrice);
         } else {
             result = movieMapper.mapListMovieToMovieDto(movieDao.getMoviesByGenreId(movieRequestData.getGenreId()));
         }
@@ -55,45 +64,5 @@ public class MovieServiceImpl implements MovieService {
 
     public MovieExtendedInformationDto getMovieById(MovieRequestData movieRequestData) {
         return movieMapper.mapToMovieExtendedInformationDto(movieDao.getMovieById(movieRequestData.getMovieId()));
-    }
-
-    private List<MovieDto> getAllMoviesOrderByRating(String ratingRequestInfo) {
-        if (ratingRequestInfo.equalsIgnoreCase("desc")) {
-            return movieMapper.mapListMovieToMovieDto(movieDao.getAllMoviesSortedByRating());
-        } else {
-            log.error("Bad movie request with rating parameter with value {}", ratingRequestInfo);
-            throw new RuntimeException("Bad movie request with rating parameter");
-        }
-    }
-
-    private List<MovieDto> getAllMoviesOrderByPrice(String priceRequestInfo) {
-        if (priceRequestInfo.equalsIgnoreCase("desc")) {
-            return movieMapper.mapListMovieToMovieDto(movieDao.getAllMoviesSortedByPriceDESC());
-        } else if (priceRequestInfo.equalsIgnoreCase("asc")) {
-            return movieMapper.mapListMovieToMovieDto(movieDao.getAllMoviesSortedByPriceASC());
-        } else {
-            log.error("Bad movie request with price parameter with value {}", priceRequestInfo);
-            throw new RuntimeException("Bad movie request with price parameter");
-        }
-    }
-
-    private List<MovieDto> getMoviesByGenreIdOrderByRating(Long id, String ratingRequestInfo) {
-        if (ratingRequestInfo.equalsIgnoreCase("desc")) {
-            return movieMapper.mapListMovieToMovieDto(movieDao.getMoviesByGenreIdSortedByRating(id));
-        } else {
-            log.error("Bad movie request with rating parameter with value {}", ratingRequestInfo);
-            throw new RuntimeException("Bad movie request with rating parameter");
-        }
-    }
-
-    private List<MovieDto> getMoviesByGenreIdOrderByPrice(Long id, String priceRequestInfo) {
-        if (priceRequestInfo.equalsIgnoreCase("desc")) {
-            return movieMapper.mapListMovieToMovieDto(movieDao.getMoviesByGenreIdSortedByPriceDESC(id));
-        } else if (priceRequestInfo.equalsIgnoreCase("asc")) {
-            return movieMapper.mapListMovieToMovieDto(movieDao.getMoviesByGenreIdSortedByPriceASC(id));
-        } else {
-            log.error("Bad movie request with price parameter with value {}", priceRequestInfo);
-            throw new RuntimeException("Bad movie request with price parameter");
-        }
     }
 }
