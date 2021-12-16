@@ -3,8 +3,10 @@ package com.model.impl;
 import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
+import com.entity.Currency;
 import com.entity.Movie;
 import com.entity.SortMethod;
+import com.model.CurrencyService;
 import com.model.MovieService;
 import com.model.mapper.MovieMapper;
 import com.repository.MovieRepository;
@@ -20,6 +22,7 @@ import java.util.List;
 public class MovieServiceImpl implements MovieService {
     private final MovieRepository movieDao;
     private final MovieMapper movieMapper;
+    private final CurrencyService currencyService;
 
     @Override
     public List<MovieDto> getRandomMovies(MovieRequestData movieRequestData) {
@@ -63,6 +66,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     public MovieExtendedInformationDto getMovieById(MovieRequestData movieRequestData) {
-        return movieMapper.mapToMovieExtendedInformationDto(movieDao.getMovieById(movieRequestData.getMovieId()));
+        Movie movieById = movieDao.getMovieById(movieRequestData.getMovieId());
+        if (movieRequestData.getCurrencyInfo() != null) {
+            Currency currency = Currency.getCurrencyIgnoreCase(movieRequestData.getCurrencyInfo());
+            movieById.setPrice(currencyService.convertFromUah(movieById.getPrice(), currency));
+        }
+        return movieMapper.mapToMovieExtendedInformationDto(movieById);
     }
 }

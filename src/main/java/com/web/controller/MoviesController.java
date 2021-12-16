@@ -47,7 +47,11 @@ public class MoviesController {
     }
 
     @GetMapping("/movie/{movieId}")
-    public MovieExtendedInformationDto getMovieById(@PathVariable(name = "movieId") Long movieId) {
-        return movieService.getMovieById(MovieRequestData.builder().movieId(movieId).build());
+    public MovieExtendedInformationDto getMovieById(@PathVariable(name = "movieId") Long movieId,
+                                                    @RequestParam(name = "currency", required = false) String currencyInfo) {
+        return movieService.getMovieById(MovieRequestData.builder()
+                .movieId(movieId)
+                .currencyInfo(currencyInfo)
+                .build());
     }
 }
