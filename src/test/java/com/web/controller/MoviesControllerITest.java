@@ -197,30 +197,31 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMovieByIdShouldReturnCorrectInfo() throws Exception {
-        mockMvc.perform(get("/movie/25"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-                .andExpect(jsonPath("$.id").value(25))
-                .andExpect(jsonPath("$.nameRussian").value("Танцующий с волками"))
-                .andExpect(jsonPath("$.nameNative").value("Dances with Wolves"))
-                .andExpect(jsonPath("$.yearOfRelease").value(1990))
-                .andExpect(jsonPath("$.description").value("Действие фильма происходит в США во времена Гражданской войны. Лейтенант американской армии Джон Данбар после ранения в бою просит перевести его на новое место службы ближе к западной границе США. Место его службы отдалённый маленький форт. Непосредственный его командир покончил жизнь самоубийством, а попутчик Данбара погиб в стычке с индейцами после того, как довез героя до места назначения. Людей, знающих, что Данбар остался один в форте и должен выжить в условиях суровой природы, и в соседстве с кажущимися негостеприимными коренными обитателями Северной Америки, просто не осталось. Казалось, он покинут всеми. Постепенно лейтенант осваивается, он ведет записи в дневнике…"))
-                .andExpect(jsonPath("$.rating").value(8.0))
-                .andExpect(jsonPath("$.price").value(120.55))
-                .andExpect(jsonPath("$.picturePath").value("https://images-na.ssl-images-amazon.com/images/M/MV5BMTY3OTI5NDczN15BMl5BanBnXkFtZTcwNDA0NDY3Mw@@._V1._SX140_CR0,0,140,209_.jpg"))
-                .andExpect(jsonPath("$.countries[0].id").value(3))
-                .andExpect(jsonPath("$.countries[1].id").value(1))
-                .andExpect(jsonPath("$.countries[1].name").value("США"))
-                .andExpect(jsonPath("$.countries[0].name").value("Великобритания"))
-                .andExpect(jsonPath("$.genres[0].id").value(15))
-                .andExpect(jsonPath("$.genres[1].id").value(1))
-                .andExpect(jsonPath("$.genres[0].name").value("вестерн"))
-                .andExpect(jsonPath("$.genres[1].name").value("драма"))
-                .andExpect(jsonPath("$.reviews[0].id").value(28))
-                .andExpect(jsonPath("$.reviews[0].text").value("Нетленный шедевр мирового кинематографа, который можно пересматривать десятки раз и получать все такой — же, извините за выражение, кайф от просмотра. Минусы у фильма, конечно, есть, но черт возьми. Их просто не хочется замечать! Ты настолько поглощен просмотром фильма, что просто не хочется придираться к разным мелочам."))
-                .andExpect(jsonPath("$.reviews[0].user.id").value(7))
-                .andExpect(jsonPath("$.reviews[0].user.nickname").value("Амелия Кэннеди"));
-
+        for (int i = 0; i < 1000; i++) {
+            mockMvc.perform(get("/movie/25"))
+                    .andExpect(status().isOk())
+                    .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                    .andExpect(jsonPath("$.id").value(25))
+                    .andExpect(jsonPath("$.nameRussian").value("Танцующий с волками"))
+                    .andExpect(jsonPath("$.nameNative").value("Dances with Wolves"))
+                    .andExpect(jsonPath("$.yearOfRelease").value(1990))
+                    .andExpect(jsonPath("$.description").value("Действие фильма происходит в США во времена Гражданской войны. Лейтенант американской армии Джон Данбар после ранения в бою просит перевести его на новое место службы ближе к западной границе США. Место его службы отдалённый маленький форт. Непосредственный его командир покончил жизнь самоубийством, а попутчик Данбара погиб в стычке с индейцами после того, как довез героя до места назначения. Людей, знающих, что Данбар остался один в форте и должен выжить в условиях суровой природы, и в соседстве с кажущимися негостеприимными коренными обитателями Северной Америки, просто не осталось. Казалось, он покинут всеми. Постепенно лейтенант осваивается, он ведет записи в дневнике…"))
+                    .andExpect(jsonPath("$.rating").value(8.0))
+                    .andExpect(jsonPath("$.price").value(120.55))
+                    .andExpect(jsonPath("$.picturePath").value("https://images-na.ssl-images-amazon.com/images/M/MV5BMTY3OTI5NDczN15BMl5BanBnXkFtZTcwNDA0NDY3Mw@@._V1._SX140_CR0,0,140,209_.jpg"))
+                    .andExpect(jsonPath("$.countries[0].id").value(3))
+                    .andExpect(jsonPath("$.countries[1].id").value(1))
+                    .andExpect(jsonPath("$.countries[1].name").value("США"))
+                    .andExpect(jsonPath("$.countries[0].name").value("Великобритания"))
+                    .andExpect(jsonPath("$.genres[0].id").value(15))
+                    .andExpect(jsonPath("$.genres[1].id").value(1))
+                    .andExpect(jsonPath("$.genres[0].name").value("вестерн"))
+                    .andExpect(jsonPath("$.genres[1].name").value("драма"))
+                    .andExpect(jsonPath("$.reviews[0].id").value(28))
+                    .andExpect(jsonPath("$.reviews[0].text").value("Нетленный шедевр мирового кинематографа, который можно пересматривать десятки раз и получать все такой — же, извините за выражение, кайф от просмотра. Минусы у фильма, конечно, есть, но черт возьми. Их просто не хочется замечать! Ты настолько поглощен просмотром фильма, что просто не хочется придираться к разным мелочам."))
+                    .andExpect(jsonPath("$.reviews[0].user.id").value(7))
+                    .andExpect(jsonPath("$.reviews[0].user.nickname").value("Амелия Кэннеди"));
+        }
     }
 
 }

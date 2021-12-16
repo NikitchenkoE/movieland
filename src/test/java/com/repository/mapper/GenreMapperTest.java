@@ -30,6 +30,6 @@ class GenreMapperTest {
 
         Genre actual = genreMapper.mapRow(resultSet, 2);
 
-        assertEquals(genreExpected, actual);
+        assertEquals(genreExpected.toString(), actual.toString());
     }
 }

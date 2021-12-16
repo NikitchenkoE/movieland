@@ -155,8 +155,8 @@ class MovieJDBCITest {
         Set<Genre> genresSet = new HashSet<>();
         Set<Country> countriesSet = new HashSet<>();
         countriesSet.add(new Country(1L, "США"));
-        genresSet.add(new Genre(1L, "драма"));
         genresSet.add(new Genre(2L, "криминал"));
+        genresSet.add(new Genre(1L, "драма"));
         reviewsSet.add(Review.builder()
                 .id(1L)
                 .user(User.builder()
@@ -192,6 +192,6 @@ class MovieJDBCITest {
         Movie movieActual = movieRep.getMovieById(1L);
 
 
-        assertEquals(movieExpected, movieActual);
+        assertEquals(movieExpected.toString(), movieActual.toString());
     }
 }

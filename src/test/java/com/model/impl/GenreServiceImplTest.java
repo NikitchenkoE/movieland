@@ -30,6 +30,6 @@ class GenreServiceImplTest {
     @Test
     void getAllGenreDto() {
         List<GenreDto> allGenreDto = genreService.getAllGenreDto();
-        assertEquals(genreDtoList, allGenreDto);
+        assertEquals(genreDtoList.toString(), allGenreDto.toString());
     }
 }
