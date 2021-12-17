@@ -12,17 +12,15 @@ import org.springframework.web.client.RestTemplate;
 
 import javax.annotation.PostConstruct;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Map;
-
-import static java.lang.String.format;
+import java.util.concurrent.ConcurrentHashMap;
 
 @Service
 @AllArgsConstructor
 public class CurrencyServiceImpl implements CurrencyService {
-    private final static String URL_TEMPLATE = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json&valcode=%s";
+    private final static String URL_TEMPLATE = "https://bank.gov.ua/NBUStatService/v1/statdirectory/exchange?json";
     private final RestTemplate restTemplate;
-    private final Map<Currency, Double> currencyRates = new HashMap<>();
+    private final Map<Currency, Double> currencyRates = new ConcurrentHashMap<>();
 
     @PostConstruct
     public void initCurrencyRates() {
@@ -40,16 +38,16 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     @Scheduled(cron = " 0 10 16 ? * * *")
     public void updateRates() {
-        for (Currency currency : Currency.values()) {
-            var response = restTemplate.exchange(format(URL_TEMPLATE, currency.getCurrencyName()),
-                    HttpMethod.GET, null, Money[].class);
+        var response = restTemplate.exchange(URL_TEMPLATE,
+                HttpMethod.GET, null, Money[].class);
 
+        for (Currency currency : Currency.values()) {
             if (response.getStatusCode() != HttpStatus.OK || response.getBody() == null) {
                 throw new RuntimeException("Can't get rates");
             }
             var moneyArray = response.getBody();
             var currentMoney = Arrays.stream(moneyArray)
-                    .filter(money -> Currency.getCurrencyIgnoreCase(money.getCc()).equals(currency))
+                    .filter(money -> money.getCc().equalsIgnoreCase(currency.getCurrencyName()))
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("Not supported currency " + currency.getCurrencyName()));
             currencyRates.put(Currency.getCurrencyIgnoreCase(currentMoney.getCc()), currentMoney.getRate());
