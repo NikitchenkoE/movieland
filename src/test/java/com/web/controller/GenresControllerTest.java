@@ -6,6 +6,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -20,21 +22,15 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = {WebConfig.class, SpringTestContext.class})
+@AutoConfigureMockMvc
+@SpringBootTest(classes = {WebConfig.class, SpringTestContext.class})
 class GenresControllerTest {
-    private MockMvc mockMvc;
     @Autowired
-    private WebApplicationContext webApplicationContext;
-
-    @BeforeEach
-    public void setup() {
-        mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
-    }
+    private MockMvc mockMvc;
 
     @Test
     void getAllGenresDto() throws Exception {
-        mockMvc.perform(get("/genre"))
+        mockMvc.perform(get("/api/v1/genre"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(15)))

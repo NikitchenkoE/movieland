@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
@@ -20,8 +21,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@WebAppConfiguration
-@ContextConfiguration(classes = {WebConfig.class, SpringTestContext.class})
+@SpringBootTest(classes = {WebConfig.class, SpringTestContext.class})
 class MoviesControllerITest {
     private MockMvc mockMvc;
 
@@ -35,7 +35,7 @@ class MoviesControllerITest {
 
     @Test
     public void findAllServiceShouldGiveRightInformationAndControllerShouldReturnRightJson() throws Exception {
-        mockMvc.perform(get("/movie"))
+        mockMvc.perform(get("/api/v1/movie"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)))
@@ -64,7 +64,7 @@ class MoviesControllerITest {
 
     @Test
     public void findRandomNumberServiceShouldGiveRightInformationAndControllerShouldReturnRightJson() throws Exception {
-        mockMvc.perform(get("/movie/random"))
+        mockMvc.perform(get("/api/v1/movie/random"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(3)));
@@ -72,7 +72,7 @@ class MoviesControllerITest {
 
     @Test
     public void testgetMoviesByGenreIdShouldReturnMoviesDtoInJsonFormat() throws Exception {
-        mockMvc.perform(get("/movie/genre/1"))
+        mockMvc.perform(get("/api/v1/movie/genre/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)))
@@ -101,7 +101,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetAllMoviesSortedByRating() throws Exception {
-        mockMvc.perform(get("/movie?rating=desc"))
+        mockMvc.perform(get("/api/v1/movie?rating=desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)));
@@ -109,7 +109,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetAllMoviesSortedByRatingCapital() throws Exception {
-        mockMvc.perform(get("/movie?rating=DESC"))
+        mockMvc.perform(get("/api/v1/movie?rating=DESC"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)));
@@ -117,7 +117,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMoviesByGenreIdSortedByRating() throws Exception {
-        mockMvc.perform(get("/movie/genre/1?rating=desc"))
+        mockMvc.perform(get("/api/v1/movie/genre/1?rating=desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
@@ -125,7 +125,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMoviesByGenreIdSortedByCapital() throws Exception {
-        mockMvc.perform(get("/movie/genre/1?rating=DESC"))
+        mockMvc.perform(get("/api/v1/movie/genre/1?rating=DESC"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
@@ -133,7 +133,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetAllMoviesSortedByPriceDesc() throws Exception {
-        mockMvc.perform(get("/movie?price=desc"))
+        mockMvc.perform(get("/api/v1/movie?price=desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)));
@@ -141,7 +141,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetAllMoviesSortedByPriceDescCapital() throws Exception {
-        mockMvc.perform(get("/movie?price=DESC"))
+        mockMvc.perform(get("/api/v1/movie?price=DESC"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)));
@@ -149,7 +149,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetAllMoviesSortedByPriceAsc() throws Exception {
-        mockMvc.perform(get("/movie?price=asc"))
+        mockMvc.perform(get("/api/v1/movie?price=asc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)));
@@ -157,7 +157,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetAllMoviesSortedByPriceAscCapital() throws Exception {
-        mockMvc.perform(get("/movie?price=ASC"))
+        mockMvc.perform(get("/api/v1/movie?price=ASC"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(25)));
@@ -165,7 +165,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMoviesByGenreIdSortedByPriceDesc() throws Exception {
-        mockMvc.perform(get("/movie/genre/1?price=desc"))
+        mockMvc.perform(get("/api/v1/movie/genre/1?price=desc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
@@ -173,7 +173,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMoviesByGenreIdSortedByPriceDescCapital() throws Exception {
-        mockMvc.perform(get("/movie/genre/1?price=DESC"))
+        mockMvc.perform(get("/api/v1/movie/genre/1?price=DESC"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
@@ -181,7 +181,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMoviesByGenreIdSortedByPriceAscCapital() throws Exception {
-        mockMvc.perform(get("/movie/genre/1?price=ASC"))
+        mockMvc.perform(get("/api/v1/movie/genre/1?price=ASC"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
@@ -189,7 +189,7 @@ class MoviesControllerITest {
 
     @Test
     public void testGetMoviesByGenreIdSortedByPriceAsc() throws Exception {
-        mockMvc.perform(get("/movie/genre/1?price=asc"))
+        mockMvc.perform(get("/api/v1/movie/genre/1?price=asc"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$", hasSize(16)));
@@ -198,7 +198,7 @@ class MoviesControllerITest {
     @Test
     public void testGetMovieByIdShouldReturnCorrectInfo() throws Exception {
         for (int i = 0; i < 1000; i++) {
-            mockMvc.perform(get("/movie/25"))
+            mockMvc.perform(get("/api/v1/movie/25"))
                     .andExpect(status().isOk())
                     .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                     .andExpect(jsonPath("$.id").value(25))

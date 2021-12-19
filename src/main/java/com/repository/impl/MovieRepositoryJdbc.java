@@ -5,14 +5,14 @@ import com.entity.SortMethod;
 import com.repository.MovieRepository;
 import com.repository.mapper.MovieExtendedInformationMapper;
 import com.repository.mapper.MovieMapper;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collections;
 import java.util.List;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
 @Repository
 public class MovieRepositoryJdbc implements MovieRepository {
     private static final String SELECT_ALL_MOVIES = "SELECT movieID, nameRussian, nameNative, yearOfRelease," +
