@@ -3,7 +3,9 @@ CREATE TABLE users
     userID              SERIAL NOT NULL PRIMARY KEY,
     userPersonalDetails varchar,
     email               varchar UNIQUE,
-    password            varchar
+    password            varchar,
+    role                varchar
+
 );
 
 
