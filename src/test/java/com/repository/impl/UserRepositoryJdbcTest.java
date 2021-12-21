@@ -49,7 +49,7 @@ class UserRepositoryJdbcTest {
         User userByEmail = userRepositoryJdbc.getUserByEmail("ronald.reynolds66@example.com");
         assertEquals("Рональд Рейнольдс", userByEmail.getNickname());
         assertEquals("ronald.reynolds66@example.com", userByEmail.getEmail());
-        assertEquals("paco", userByEmail.getPassword());
+        assertEquals("$2a$08$F5rK18KV86WFOEOtUBXb3Odl53xlm2ww9FnJXHmEloIZyaCAaEo.W", userByEmail.getPassword());
         assertEquals(UserRole.ROLE_USER, userByEmail.getUserRole());
 
     }
