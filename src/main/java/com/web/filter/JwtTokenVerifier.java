@@ -1,6 +1,7 @@
-package com.config.jwt;
+package com.web.filter;
 
 
+import com.config.jwt.JwtConfig;
 import com.google.common.base.Strings;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
