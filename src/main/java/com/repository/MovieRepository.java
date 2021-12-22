@@ -1,25 +1,33 @@
 package com.repository;
 
+import com.dto.MovieDto;
 import com.entity.Movie;
 import com.entity.SortMethod;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface MovieRepository {
-    List<Movie> getAllMovies();
+@Repository
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    List<Movie> getRandomMovies(int count);
+    @Query(value = "SELECT * FROM movies ORDER BY random() LIMIT :count", nativeQuery = true)
+    List<Movie> getRandomMovies(@Param("count") int count);
 
-    List<Movie> getMoviesByGenreId(Long id);
+    @Query("SELECT new com.dto.MovieDto(m.id, m.nameRussian, m.nameNative, m.yearOfRelease,  m.rating, m.price, m.picturePath) FROM Movie m " +
+            "left join m.genres g WHERE g.id = :genreID")
+    List<MovieDto> getMoviesByGenreId(@Param("genreID") Long genreID);
 
-    List<Movie> getAllMoviesSortedByRating(SortMethod sortMethod);
+    @Query("SELECT new com.dto.MovieDto(m.id, m.nameRussian, m.nameNative, m.yearOfRelease,  m.rating, m.price, m.picturePath) FROM Movie m")
+    List<MovieDto> getAllMovies();
 
-    List<Movie> getMoviesByGenreIdSortedByRating(Long id, SortMethod sortMethod);
+    @Query("SELECT new com.dto.MovieDto(m.id, m.nameRussian, m.nameNative, m.yearOfRelease,  m.rating, m.price, m.picturePath) FROM Movie m")
+    List<MovieDto> getAllMoviesSorted(Sort sort);
 
-    List<Movie> getAllMoviesSortedByPrice(SortMethod sortMethod);
-
-    List<Movie> getMoviesByGenreIdSortedByPrice(Long id, SortMethod sortMethod);
-
-    Movie getMovieById(Long id);
-
+    @Query("SELECT new com.dto.MovieDto(m.id, m.nameRussian, m.nameNative, m.yearOfRelease,  m.rating, m.price, m.picturePath) FROM Movie m " +
+            "left join m.genres g WHERE g.id = :genreID")
+    List<MovieDto> getMoviesByGenreIdSorted(@Param("genreID") Long genreID, Sort sort);
 }

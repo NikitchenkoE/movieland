@@ -4,6 +4,7 @@ import com.dto.GenreDto;
 import com.model.GenreService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.context.annotation.Primary;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
+@Primary
 public class CachedGenreServiceImpl implements GenreService {
     private final GenreService genreServiceImpl;
     private List<GenreDto> genreCache = new ArrayList<>();

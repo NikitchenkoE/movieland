@@ -15,7 +15,7 @@ public class SessionUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.getUserByEmail(email);
+        User user = userRepository.getByEmail(email);
         return new SessionUser(user);
     }
 }

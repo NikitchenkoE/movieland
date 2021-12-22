@@ -12,7 +12,7 @@ import java.util.List;
 public class GenresController {
     private final GenreService genreService;
 
-    public GenresController(@Qualifier("cachedGenreServiceImpl") GenreService genreService) {
+    public GenresController(GenreService genreService) {
         this.genreService = genreService;
     }
 

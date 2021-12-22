@@ -1,26 +1,51 @@
 package com.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import javax.persistence.*;
 import java.util.Set;
 
+@Entity
+@Table(name = "movies")
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@ToString
 public class Movie {
+    @Id
+    @Column(name = "movieid", unique = true, nullable = false, updatable = false)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @Column(name = "namerussian")
     private String nameRussian;
+    @Column(name = "namenative")
     private String nameNative;
+    @Column(name = "yearofrelease")
     private int yearOfRelease;
+    @Column(name = "picturepath")
     private String picturePath;
+    @Column(name = "description")
     private String description;
+    @Column(name = "rating")
     private double rating;
+    @Column(name = "price")
     private double price;
+
+    @ManyToMany
+    @JoinTable(name = "moviecountryrelation",
+            joinColumns = @JoinColumn(name = "movieid"),
+            inverseJoinColumns = @JoinColumn(name = "countryid"))
     private Set<Country> countries;
+
+    @ManyToMany
+    @JoinTable(name = "moviegenrerelation",
+            joinColumns = @JoinColumn(name = "movieid"),
+            inverseJoinColumns = @JoinColumn(name = "genreid"))
     private Set<Genre> genres;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "reviewid")
     private Set<Review> reviews;
 }

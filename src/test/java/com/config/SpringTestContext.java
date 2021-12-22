@@ -18,7 +18,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import javax.sql.DataSource;
 
-@ComponentScan({"com.model", "com.repository"})
 @PropertySource("classpath:application.properties")
 @Configuration
 public class SpringTestContext implements WebMvcConfigurer {
@@ -62,10 +61,5 @@ public class SpringTestContext implements WebMvcConfigurer {
     @Bean
     NamedParameterJdbcTemplate namedParameterJdbcTemplate(JdbcTemplate jdbcTemplate) {
         return new NamedParameterJdbcTemplate(jdbcTemplate);
-    }
-
-    @Bean
-    RestTemplate restTemplate() {
-        return new RestTemplate();
     }
 }

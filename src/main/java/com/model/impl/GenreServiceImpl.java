@@ -12,13 +12,12 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-@Primary
 public class GenreServiceImpl implements GenreService {
     private final GenreRepository genreRepository;
     private final GenreMapper genreMapper;
 
     @Override
     public List<GenreDto> getAllGenreDto() {
-        return genreMapper.mapListGenreToGenreDto(genreRepository.getAllGenres());
+        return genreMapper.mapListGenreToGenreDto(genreRepository.findAll());
     }
 }
