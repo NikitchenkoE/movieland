@@ -74,7 +74,7 @@ public class MovieServiceImpl implements MovieService {
 
     public MovieExtendedInformationDto getMovieById(MovieRequestData movieRequestData) {
         Movie movieById = movieDao.findById(movieRequestData.getMovieId())
-                .orElseThrow(()-> new RuntimeException("Movie with this id is not present"));
+                .orElseThrow(()-> new RuntimeException("Film by id not present"));
         if (movieRequestData.getCurrencyInfo() != null) {
             Currency currency = Currency.getCurrencyIgnoreCase(movieRequestData.getCurrencyInfo());
             movieById.setPrice(currencyService.convertFromUah(movieById.getPrice(), currency));

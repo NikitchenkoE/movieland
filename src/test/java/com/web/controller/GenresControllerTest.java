@@ -1,6 +1,5 @@
 package com.web.controller;
 
-import com.config.SpringTestContext;
 import com.config.WebConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,7 +19,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {WebConfig.class, SpringTestContext.class})
+@SpringBootTest
 class GenresControllerTest {
     private MockMvc mockMvc;
 

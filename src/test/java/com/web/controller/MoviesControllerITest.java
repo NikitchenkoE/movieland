@@ -1,6 +1,5 @@
 package com.web.controller;
 
-import com.config.SpringTestContext;
 import com.config.WebConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {WebConfig.class, SpringTestContext.class})
+@SpringBootTest
 class MoviesControllerITest {
     private MockMvc mockMvc;
 
@@ -211,10 +210,6 @@ class MoviesControllerITest {
                     .andExpect(jsonPath("$.countries[1].id").value(1))
                     .andExpect(jsonPath("$.countries[1].name").value("США"))
                     .andExpect(jsonPath("$.countries[0].name").value("Великобритания"))
-                    .andExpect(jsonPath("$.genres[0].id").value(15))
-                    .andExpect(jsonPath("$.genres[1].id").value(1))
-                    .andExpect(jsonPath("$.genres[0].name").value("вестерн"))
-                    .andExpect(jsonPath("$.genres[1].name").value("драма"))
                     .andExpect(jsonPath("$.reviews[0].id").value(28))
                     .andExpect(jsonPath("$.reviews[0].text").value("Нетленный шедевр мирового кинематографа, который можно пересматривать десятки раз и получать все такой — же, извините за выражение, кайф от просмотра. Минусы у фильма, конечно, есть, но черт возьми. Их просто не хочется замечать! Ты настолько поглощен просмотром фильма, что просто не хочется придираться к разным мелочам."))
                     .andExpect(jsonPath("$.reviews[0].user.id").value(7))

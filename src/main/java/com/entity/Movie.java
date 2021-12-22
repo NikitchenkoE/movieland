@@ -33,19 +33,27 @@ public class Movie {
     @Column(name = "price")
     private double price;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    },
+            fetch = FetchType.EAGER)
     @JoinTable(name = "moviecountryrelation",
             joinColumns = @JoinColumn(name = "movieid"),
             inverseJoinColumns = @JoinColumn(name = "countryid"))
     private Set<Country> countries;
 
-    @ManyToMany
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    },
+            fetch = FetchType.EAGER)
     @JoinTable(name = "moviegenrerelation",
             joinColumns = @JoinColumn(name = "movieid"),
             inverseJoinColumns = @JoinColumn(name = "genreid"))
     private Set<Genre> genres;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "reviewid")
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "movieid")
     private Set<Review> reviews;
 }

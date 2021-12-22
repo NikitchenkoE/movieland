@@ -1,6 +1,5 @@
 package com.model.impl;
 
-import com.config.SpringTestContext;
 import com.config.WebConfig;
 import com.entity.Currency;
 import com.model.CurrencyService;
@@ -13,7 +12,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {WebConfig.class, SpringTestContext.class})
+@SpringBootTest
 class CurrencyServiceImplTest {
     @Autowired
     private CurrencyService currencyService;

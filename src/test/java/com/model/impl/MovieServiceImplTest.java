@@ -1,6 +1,5 @@
 package com.model.impl;
 
-import com.config.SpringTestContext;
 import com.config.WebConfig;
 import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
@@ -18,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = {WebConfig.class, SpringTestContext.class})
+@SpringBootTest
 class MovieServiceImplTest {
     @Autowired
     private MovieService movieService;
