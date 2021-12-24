@@ -35,7 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .addFilter(jwtUsernameAndPasswordAuthenticationFilter())
                 .addFilterAfter(new JwtTokenVerifier(jwtConfig, secretKey), JwtUsernameAndPasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers("/api/v1/movie/**", "/api/v1/genre/**").permitAll()
+                .antMatchers("/", "/favicon.ico","/error").permitAll()
+                .antMatchers("/api/v1/movie/**", "/api/v1/genre/**", "/api/v1/review/**").permitAll()
                 .anyRequest()
                 .authenticated();
     }
