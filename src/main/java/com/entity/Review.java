@@ -21,6 +21,9 @@ public class Review {
     @Column(name = "reviewtext")
     private String text;
 
+    @Column(name = "movieid")
+    private Long movieId;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userid")
     private User user;
