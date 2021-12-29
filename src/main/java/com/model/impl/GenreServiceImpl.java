@@ -5,7 +5,6 @@ import com.model.GenreService;
 import com.model.mapper.GenreMapper;
 import com.repository.GenreRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

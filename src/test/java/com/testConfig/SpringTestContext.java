@@ -19,7 +19,7 @@ import javax.sql.DataSource;
 
 @TestConfiguration
 @PropertySource("classpath:application.properties")
-public class SpringTestContext implements WebMvcConfigurer {
+public class SpringTestContext{
 
     @Bean
     public DataSource originalDataSource(@Value("${db.user}") String username,

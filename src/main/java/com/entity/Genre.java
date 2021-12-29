@@ -19,7 +19,7 @@ public class Genre {
     @Column(name = "genreid", unique = true, nullable = false, updatable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    @Column (name = "genre")
+    @Column(name = "genre")
     private String name;
 
     @ManyToMany(mappedBy = "genres")

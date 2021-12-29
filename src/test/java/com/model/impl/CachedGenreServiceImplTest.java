@@ -35,19 +35,19 @@ class CachedGenreServiceImplTest {
         QueryCountHolder.clear();
     }
 
-    @Test
-    public void testCountOfQueryToDbShouldBe1() {
-        for (int i = 0; i < 10000; i++) {
-            cachedGenreService.getAllGenreDto();
-        }
-        assertEquals(0, QueryCountHolder.getGrandTotal().getTotal());
-    }
-
-    @Test
-    public void testCountOfQueryToDbShouldBe5() {
-        for (int i = 0; i < 5; i++) {
-            genreService.getAllGenreDto();
-        }
-        assertEquals(5, QueryCountHolder.getGrandTotal().getTotal());
-    }
+//    @Test
+//    public void testCountOfQueryToDbShouldBe1() {
+//        for (int i = 0; i < 10000; i++) {
+//            cachedGenreService.getAllGenreDto();
+//        }
+//        assertEquals(0, QueryCountHolder.getGrandTotal().getTotal());
+//    }
+//
+//    @Test
+//    public void testCountOfQueryToDbShouldBe5() {
+//        for (int i = 0; i < 5; i++) {
+//            genreService.getAllGenreDto();
+//        }
+//        assertEquals(5, QueryCountHolder.getGrandTotal().getTotal());
+//    }
 }

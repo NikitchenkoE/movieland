@@ -37,13 +37,13 @@ public class MovieServiceImpl implements MovieService {
         List<MovieDto> result;
         if (movieRequestData.getRatingRequestInfo() != null) {
             String ratingRequestInfo = movieRequestData.getRatingRequestInfo();
-           result = SortMethod.valueOfIgnoreCase(ratingRequestInfo).getMethod().equalsIgnoreCase("ASC")?
-            movieDao.getAllMoviesSorted(Sort.by("rating").ascending()):
-            movieDao.getAllMoviesSorted(Sort.by("rating").descending());
+            result = SortMethod.valueOfIgnoreCase(ratingRequestInfo).getMethod().equalsIgnoreCase("ASC") ?
+                    movieDao.getAllMoviesSorted(Sort.by("rating").ascending()) :
+                    movieDao.getAllMoviesSorted(Sort.by("rating").descending());
         } else if (movieRequestData.getPriceRequestInfo() != null) {
             String priceRequestInfo = movieRequestData.getPriceRequestInfo();
-            result = SortMethod.valueOfIgnoreCase(priceRequestInfo).getMethod().equalsIgnoreCase("ASC")?
-                    movieDao.getAllMoviesSorted(Sort.by("price").ascending()):
+            result = SortMethod.valueOfIgnoreCase(priceRequestInfo).getMethod().equalsIgnoreCase("ASC") ?
+                    movieDao.getAllMoviesSorted(Sort.by("price").ascending()) :
                     movieDao.getAllMoviesSorted(Sort.by("price").descending());
         } else {
             result = movieDao.getAllMovies();
@@ -58,14 +58,14 @@ public class MovieServiceImpl implements MovieService {
         List<MovieDto> result;
         if (movieRequestData.getRatingRequestInfo() != null) {
             String ratingRequestInfo = movieRequestData.getRatingRequestInfo();
-            result = SortMethod.valueOfIgnoreCase(ratingRequestInfo).getMethod().equalsIgnoreCase("ASC")?
-                    movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("rating").ascending()):
+            result = SortMethod.valueOfIgnoreCase(ratingRequestInfo).getMethod().equalsIgnoreCase("ASC") ?
+                    movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("rating").ascending()) :
                     movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("rating").descending());
         } else if (movieRequestData.getPriceRequestInfo() != null) {
             String priceRequestInfo = movieRequestData.getPriceRequestInfo();
-            result = SortMethod.valueOfIgnoreCase(priceRequestInfo).getMethod().equalsIgnoreCase("ASC")?
-            movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("price").ascending()):
-            movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("price").descending());
+            result = SortMethod.valueOfIgnoreCase(priceRequestInfo).getMethod().equalsIgnoreCase("ASC") ?
+                    movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("price").ascending()) :
+                    movieDao.getMoviesByGenreIdSorted(genreId, Sort.by("price").descending());
         } else {
             result = movieDao.getMoviesByGenreId(movieRequestData.getGenreId());
         }
@@ -74,7 +74,7 @@ public class MovieServiceImpl implements MovieService {
 
     public MovieExtendedInformationDto getMovieById(MovieRequestData movieRequestData) {
         Movie movieById = movieDao.findById(movieRequestData.getMovieId())
-                .orElseThrow(()-> new RuntimeException("Film by id not present"));
+                .orElseThrow(() -> new RuntimeException("Film by id not present"));
         if (movieRequestData.getCurrencyInfo() != null) {
             Currency currency = Currency.getCurrencyIgnoreCase(movieRequestData.getCurrencyInfo());
             movieById.setPrice(currencyService.convertFromUah(movieById.getPrice(), currency));
