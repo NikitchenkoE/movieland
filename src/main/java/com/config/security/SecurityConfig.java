@@ -1,8 +1,8 @@
 package com.config.security;
 
 import com.config.jwt.JwtConfig;
-import com.web.filter.JwtTokenVerifier;
-import com.web.filter.JwtUsernameAndPasswordAuthenticationFilter;
+import com.config.jwt.filter.JwtTokenVerifier;
+import com.config.jwt.filter.JwtUsernameAndPasswordAuthenticationFilter;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

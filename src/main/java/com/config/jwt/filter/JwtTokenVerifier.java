@@ -1,4 +1,4 @@
-package com.web.filter;
+package com.config.jwt.filter;
 
 
 import com.config.jwt.JwtConfig;
