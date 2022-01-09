@@ -1,11 +1,10 @@
 package com.model.impl;
 
+import com.dto.MovieAddDto;
 import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;
-import com.entity.Currency;
-import com.entity.Movie;
-import com.entity.SortMethod;
+import com.entity.*;
 import com.model.CurrencyService;
 import com.model.MovieService;
 import com.model.mapper.MovieMapper;
@@ -16,6 +15,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -80,5 +80,27 @@ public class MovieServiceImpl implements MovieService {
             movieById.setPrice(currencyService.convertFromUah(movieById.getPrice(), currency));
         }
         return movieMapper.mapToMovieExtendedInformationDto(movieById);
+    }
+
+    public void addMovie(MovieAddDto movieAddDto) {
+        movieDao.save(mapMovieAddDtoToMovie(movieAddDto));
+    }
+
+    private Movie mapMovieAddDtoToMovie(MovieAddDto movieAddDto) {
+        return Movie.builder()
+                .id(movieAddDto.getId())
+                .nameRussian(movieAddDto.getNameRussian())
+                .nameNative(movieAddDto.getNameNative())
+                .yearOfRelease(movieAddDto.getYearOfRelease())
+                .description(movieAddDto.getDescription())
+                .price(movieAddDto.getPrice())
+                .picturePath(movieAddDto.getPicturePath())
+                .countries(movieAddDto.getCountries().stream()
+                        .map(id -> new Country(id, null, null))
+                        .collect(Collectors.toSet()))
+                .genres(movieAddDto.getGenres().stream()
+                        .map(id -> new Genre(id, null, null))
+                        .collect(Collectors.toSet()))
+                .build();
     }
 }
