@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
 @SpringBootTest
 @AutoConfigureMockMvc
 @WithMockUser
@@ -28,9 +29,9 @@ class ReviewControllerTest {
     public void shouldCreateReview() throws Exception {
         mockMvc
                 .perform(MockMvcRequestBuilders
-                .post("/api/v1/review")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"movieId\" : 1, \"text\" : \"Очень понравилось, очень интересно!\"}"))
+                        .post("/api/v1/review")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content("{\"movieId\" : 1, \"text\" : \"Очень понравилось, очень интересно!\"}"))
                 .andExpect(status().isOk());
 
         Mockito.verify(reviewService).addReview(Mockito.any(ReviewDtoWithoutUser.class), Mockito.any(String.class));

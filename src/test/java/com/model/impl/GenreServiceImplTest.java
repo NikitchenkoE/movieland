@@ -1,6 +1,5 @@
 package com.model.impl;
 
-import com.config.RootConfig;
 import com.dto.GenreDto;
 import com.model.GenreService;
 import org.junit.jupiter.api.Test;

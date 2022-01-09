@@ -1,6 +1,5 @@
 package com.model.impl;
 
-import com.config.WebConfig;
 import com.dto.MovieDto;
 import com.dto.MovieExtendedInformationDto;
 import com.dto.MovieRequestData;

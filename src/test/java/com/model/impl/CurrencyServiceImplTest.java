@@ -1,6 +1,5 @@
 package com.model.impl;
 
-import com.config.WebConfig;
 import com.entity.Currency;
 import com.model.CurrencyService;
 import org.junit.jupiter.api.Test;

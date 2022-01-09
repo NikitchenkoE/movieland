@@ -57,14 +57,14 @@ public class MoviesController {
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping("/movie")
-    public void addNewMovie(@RequestBody MovieAddDto movieAddDto){
+    public void addNewMovie(@RequestBody MovieAddDto movieAddDto) {
 
         movieService.addMovie(movieAddDto);
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("/movie/{id}")
-    public void updateMovieMovie(@RequestBody MovieAddDto movieAddDto, @PathVariable(value = "id") Long id){
+    public void updateMovieMovie(@RequestBody MovieAddDto movieAddDto, @PathVariable(value = "id") Long id) {
         movieAddDto.setId(id);
         movieService.addMovie(movieAddDto);
     }
